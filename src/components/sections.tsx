@@ -3,7 +3,8 @@ import { ArrowUpRight, MapPin, Navigation } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { InstagramIcon, Leaf, Sparkle } from "@/components/icons";
-import { DrawLine, Reveal } from "@/components/reveal";
+import { Reveal } from "@/components/reveal";
+import { BezelLogo, MoodScrolly, ParallaxArch } from "@/components/scroll-scenes";
 import { site } from "@/lib/site";
 
 const values = ["Calidad", "Exclusividad", "Creatividad", "Innovación", "Elegancia", "Atención al detalle"];
@@ -42,16 +43,7 @@ export function About() {
     >
       <div className="mx-auto grid max-w-[1440px] gap-12 px-4 sm:px-8 lg:grid-cols-12 lg:gap-6 lg:px-12">
         <Reveal className="lg:col-span-5">
-          <div className="relative mx-auto max-w-md overflow-hidden rounded-t-full border border-gold/40 p-2 lg:mx-0">
-            <Image
-              src="/images/vaso-pistache-original.jpg"
-              alt="Vaso de fresas con chocolate belga y pistache, con el logo de BerryMood, sobre una mesa de mármol"
-              width={853}
-              height={1280}
-              sizes="(min-width: 1024px) 420px, 90vw"
-              className="h-auto w-full rounded-t-full"
-            />
-          </div>
+          <ParallaxArch />
         </Reveal>
 
         <div className="lg:col-span-6 lg:col-start-7 lg:self-center">
@@ -110,39 +102,7 @@ const steps = [
 ];
 
 export function BuildYourMood() {
-  return (
-    <section
-      id="arma-tu-mood"
-      aria-labelledby="arma-title"
-      className="relative scroll-mt-4 overflow-hidden bg-chocolate-800 py-section"
-    >
-      <div className="mx-auto max-w-[1440px] px-4 sm:px-8 lg:px-12">
-        <Reveal className="grid gap-6 lg:grid-cols-12 lg:items-end">
-          <h2 id="arma-title" className="text-fluid-2xl leading-[1.02] font-normal text-cream lg:col-span-7">
-            Arma tu mood en <span className="text-gilded italic">tres pasos.</span>
-          </h2>
-          <p className="max-w-[40ch] leading-relaxed text-cream-muted lg:col-span-4 lg:col-start-9">
-            Tú eliges la combinación. Nosotros nos encargamos de que salga perfecta, cada vez.
-          </p>
-        </Reveal>
-
-        <div className="relative mt-16 lg:mt-24">
-          <DrawLine className="absolute top-[2.6rem] right-0 left-0 hidden h-px bg-gradient-to-r from-gold/60 via-gold/25 to-transparent md:block" />
-          <ol className="relative grid gap-12 md:grid-cols-3 md:gap-8">
-          {steps.map((step, i) => (
-            <Reveal key={step.title} as="li" delay={i * 0.08} className="relative">
-              <span className="relative inline-grid size-[5.2rem] place-items-center rounded-full border border-gold/50 bg-chocolate-800 font-heading text-4xl text-gold italic">
-                {i + 1}
-              </span>
-              <h3 className="mt-8 text-fluid-xl font-normal text-cream">{step.title}</h3>
-              <p className="mt-3 max-w-[32ch] leading-relaxed text-cream-muted">{step.body}</p>
-            </Reveal>
-          ))}
-          </ol>
-        </div>
-      </div>
-    </section>
-  );
+  return <MoodScrolly steps={steps} />;
 }
 
 export function Visit() {
@@ -202,17 +162,7 @@ export function Visit() {
         </div>
 
         <Reveal delay={0.1} className="lg:col-span-5 lg:col-start-8">
-          <div className="relative mx-auto aspect-square w-[86%] max-w-[460px]">
-            <div aria-hidden="true" className="absolute inset-[-6%] rounded-full border border-gold/15" />
-            <Image
-              src="/images/logo-crema.png"
-              alt="Logotipo de BerryMood: monograma BM dentro de un círculo dorado con el texto Chocolate & Berry Lab"
-              width={884}
-              height={872}
-              sizes="(min-width: 1024px) 460px, 90vw"
-              className="h-auto w-full"
-            />
-          </div>
+          <BezelLogo />
         </Reveal>
       </div>
     </section>
