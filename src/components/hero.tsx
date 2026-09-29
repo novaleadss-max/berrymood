@@ -11,7 +11,7 @@ import { site } from "@/lib/site";
 const easeOut = [0.23, 1, 0.32, 1] as const;
 
 const stats = [
-  { value: "100%", label: "Chocolate belga", note: "en cada baño" },
+  { value: "100%", label: "Chocolate premium", note: "en cada baño" },
   { value: "1 × 1", label: "Fresas", note: "escogidas a mano" },
   { value: "∞", label: "Combinaciones", note: "tú armas la tuya" },
 ];
@@ -138,7 +138,7 @@ export function Hero() {
             {...rise(0.8)}
             className="mt-6 max-w-[34ch] text-fluid-base leading-relaxed text-cream/80"
           >
-            Fresas escogidas una por una, chocolate belga y toppings que vamos cambiando. Un postre
+            Fresas escogidas una por una, chocolate premium y toppings que vamos cambiando. Un postre
             de siempre, servido como si fuera ocasión especial.
           </motion.p>
 
@@ -169,7 +169,7 @@ export function Hero() {
         >
           <Image
             src="/images/vaso-pistache.png"
-            alt="Vaso BerryMood con capas de fresa, chocolate belga y pistache troceado encima"
+            alt="Vaso BerryMood con capas de fresa, chocolate premium y pistache troceado encima"
             width={720}
             height={1109}
             preload

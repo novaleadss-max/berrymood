@@ -39,7 +39,7 @@ export function ParallaxArch() {
         <motion.div style={reduce ? undefined : { transform: imgTransform }}>
           <Image
             src="/images/vaso-pistache-original.jpg"
-            alt="Vaso de fresas con chocolate belga y pistache, con el logo de BerryMood, sobre una mesa de mármol"
+            alt="Vaso de fresas con chocolate premium y pistache, con el logo de BerryMood, sobre una mesa de mármol"
             width={853}
             height={1280}
             sizes="(min-width: 1024px) 420px, 90vw"
@@ -106,7 +106,7 @@ export function MoodScrolly({ steps }: { steps: Step[] }) {
             <motion.div style={{ transform: cup }} className="relative h-[92%] max-h-[720px]">
               <Image
                 src="/images/vaso-pistache.png"
-                alt="Vaso BerryMood de fresa, chocolate belga y pistache"
+                alt="Vaso BerryMood de fresa, chocolate premium y pistache"
                 width={720}
                 height={1109}
                 sizes="(min-width: 1024px) 460px, 60vw"

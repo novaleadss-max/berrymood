@@ -23,21 +23,21 @@ const siteUrl =
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
-  title: "BerryMood | Fresas con chocolate belga en Chilpancingo",
+  title: "BerryMood | Fresas con chocolate premium en Chilpancingo",
   description:
-    "Fresas seleccionadas, chocolate belga y toppings exclusivos. Vasos, fresas con crema y cajas para regalo en Galerías Chilpancingo. Berry Your Mood.",
+    "Fresas seleccionadas, chocolate premium y toppings exclusivos. Vasos, fresas con crema y cajas para regalo en Galerías Chilpancingo. Berry Your Mood.",
   keywords: [
     "fresas con chocolate",
     "fresas con crema",
     "fresas Chilpancingo",
-    "chocolate belga",
+    "chocolate premium",
     "postres Chilpancingo",
     "BerryMood",
   ],
   openGraph: {
     title: "BerryMood | Berry Your Mood.",
     description:
-      "Fresas seleccionadas, chocolate belga y toppings exclusivos en Galerías Chilpancingo.",
+      "Fresas seleccionadas, chocolate premium y toppings exclusivos en Galerías Chilpancingo.",
     locale: "es_MX",
     type: "website",
     siteName: "BerryMood",
@@ -46,7 +46,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "BerryMood | Berry Your Mood.",
     description:
-      "Fresas seleccionadas, chocolate belga y toppings exclusivos en Galerías Chilpancingo.",
+      "Fresas seleccionadas, chocolate premium y toppings exclusivos en Galerías Chilpancingo.",
   },
 };
 
@@ -60,7 +60,7 @@ const jsonLd = {
   name: "BerryMood",
   slogan: "Berry Your Mood.",
   description:
-    "Fresas premium con chocolate belga y toppings exclusivos. Chocolate & Berry Lab.",
+    "Fresas con chocolate premium y toppings exclusivos. Chocolate & Berry Lab.",
   servesCuisine: "Postres",
   address: {
     "@type": "PostalAddress",

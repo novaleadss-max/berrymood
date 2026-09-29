@@ -56,14 +56,14 @@ export function About() {
               id="nosotros-title"
               className="mt-6 text-fluid-2xl leading-[1.02] font-normal tracking-[-0.01em] text-chocolate-600"
             >
-              Una fresa sola es fruta. <span className="italic text-gold-deep">Con chocolate belga</span> ya es otra
+              Una fresa sola es fruta. <span className="italic text-gold-deep">Con chocolate premium</span> ya es otra
               historia.
             </h2>
           </Reveal>
           <Reveal delay={0.08}>
             <p className="mt-8 max-w-[52ch] text-fluid-base leading-relaxed text-chocolate-700">
               BerryMood nació de una idea sencilla: el postre de fresas que todos conocemos merecía un mejor
-              trato. Por eso juntamos fruta fresca, chocolate belga y toppings que no encuentras en cualquier
+              trato. Por eso juntamos fruta fresca, chocolate premium y toppings que no encuentras en cualquier
               lado, y lo servimos con el cuidado de algo hecho para regalar. Aunque sea para ti.
             </p>
           </Reveal>
@@ -74,7 +74,7 @@ export function About() {
               <p className="mt-3 leading-relaxed text-chocolate-700">
                 En <strong className="font-semibold text-chocolate-600">BerryMood</strong> transformamos fresas
                 frescas en una experiencia única, combinándolas con{" "}
-                <strong className="font-semibold text-chocolate-600">chocolate belga</strong> de la más alta calidad
+                <strong className="font-semibold text-chocolate-600">chocolate premium</strong> de la más alta calidad
                 y una variedad de <strong className="font-semibold text-chocolate-600">toppings premium</strong>,
                 creando combinaciones que sorprenden y una presentación que da gusto compartir.
               </p>
@@ -93,7 +93,7 @@ const steps = [
   },
   {
     title: "El chocolate",
-    body: "Belga, fundido y servido a la temperatura justa para cubrir cada fresa con una capa suave, brillante y deliciosa.",
+    body: "Premium, fundido y servido a la temperatura justa para cubrir cada fresa con una capa suave, brillante y deliciosa.",
   },
   {
     title: "El topping",

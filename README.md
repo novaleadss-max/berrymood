@@ -1,6 +1,6 @@
 # BerryMood
 
-Landing page de **BerryMood**: fresas premium con chocolate belga. Galerías Chilpancingo, Gro.
+Landing page de **BerryMood**: fresas con chocolate premium. Galerías Chilpancingo, Gro.
 
 *Berry Your Mood.*
 
