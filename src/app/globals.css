@@ -1,0 +1,265 @@
+@import "tailwindcss";
+
+/* BerryMood tokens — colors sampled straight from the logo.
+   Chocolate #4F2B15 (the "BM"), gold #C2883A (ring, leaf, star). */
+:root {
+  --chocolate-950: #170c06;
+  --chocolate-900: #1e1109;
+  --chocolate-800: #2a180c;
+  --chocolate-700: #3a2112;
+  --chocolate-600: #4f2b15;
+  --gold: #c2883a;
+  --gold-soft: #d9a95e;
+  --gold-deep: #8f6224;
+  --cream: #fbf7f1;
+  --cream-muted: #c9b6a0;
+
+  --background: var(--chocolate-900);
+  --foreground: var(--cream);
+  --muted-foreground: var(--cream-muted);
+  --border: rgb(194 136 58 / 0.18);
+  --ring: var(--gold-soft);
+
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+  --ease-drawer: cubic-bezier(0.32, 0.72, 0, 1);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-border: var(--border);
+  --color-ring: var(--ring);
+
+  --color-chocolate-950: var(--chocolate-950);
+  --color-chocolate-900: var(--chocolate-900);
+  --color-chocolate-800: var(--chocolate-800);
+  --color-chocolate-700: var(--chocolate-700);
+  --color-chocolate-600: var(--chocolate-600);
+  --color-gold: var(--gold);
+  --color-gold-soft: var(--gold-soft);
+  --color-gold-deep: var(--gold-deep);
+  --color-cream: var(--cream);
+  --color-cream-muted: var(--cream-muted);
+
+  --font-heading: var(--font-bodoni);
+  --font-body: var(--font-jost);
+}
+
+@theme {
+  --text-fluid-sm: clamp(0.875rem, 0.8rem + 0.35vw, 1rem);
+  --text-fluid-base: clamp(1rem, 0.9rem + 0.5vw, 1.125rem);
+  --text-fluid-lg: clamp(1.25rem, 1rem + 1.25vw, 1.75rem);
+  --text-fluid-xl: clamp(1.75rem, 1.2rem + 2.75vw, 3rem);
+  --text-fluid-2xl: clamp(2.25rem, 1.5rem + 3.75vw, 4.5rem);
+  --text-fluid-hero: clamp(3.5rem, 1.6rem + 7.5vw, 8.5rem);
+
+  --spacing-section: clamp(5rem, 10vw, 9rem);
+}
+
+@layer base {
+  * {
+    border-color: var(--border);
+  }
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    background: var(--background);
+    color: var(--foreground);
+    font-family: var(--font-body), ui-sans-serif, sans-serif;
+  }
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-heading), serif;
+    text-wrap: balance;
+  }
+  ::selection {
+    background: var(--gold);
+    color: var(--chocolate-950);
+  }
+}
+
+/* ---------- Interaction polish ---------- */
+
+.press {
+  transition:
+    transform 160ms var(--ease-out),
+    background-color 200ms var(--ease-out),
+    color 200ms var(--ease-out),
+    border-color 200ms var(--ease-out);
+}
+.press:active {
+  transform: scale(0.97);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .hover-lift:hover {
+    background-color: var(--gold-soft);
+  }
+  .bg-cream.hover-lift:hover {
+    background-color: #fff;
+  }
+  .hover-tint:hover {
+    background-color: rgb(194 136 58 / 0.12);
+    border-color: var(--gold);
+  }
+  .link-underline:hover::after {
+    transform: scaleX(1);
+  }
+  .menu-row:hover .menu-arrow {
+    transform: translateX(4px);
+    color: var(--gold);
+  }
+}
+
+.link-underline {
+  position: relative;
+}
+.link-underline::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -4px;
+  height: 1px;
+  background: var(--gold);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 220ms var(--ease-out);
+}
+.menu-arrow {
+  transition:
+    transform 200ms var(--ease-out),
+    color 200ms var(--ease-out);
+}
+
+/* Gradient headline, like the reference's silver-to-white type — here cream to gold. */
+.text-gilded {
+  background: linear-gradient(100deg, #fbf7f1 0%, #f1dcc0 45%, #c2883a 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.text-gilded-dim {
+  background: linear-gradient(100deg, rgb(251 247 241 / 0.55) 0%, rgb(217 169 94 / 0.9) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.grain::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.07;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* ---------- Ambient motion (marketing surfaces only) ---------- */
+
+@keyframes spin-slow {
+  to {
+    transform: rotate(360deg);
+  }
+}
+.spin-slow {
+  animation: spin-slow 60s linear infinite;
+}
+
+@keyframes marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+.marquee-track {
+  animation: marquee 40s linear infinite;
+}
+
+/* ---------- Sheet (mobile menu) ---------- */
+
+@keyframes sheet-in {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+@keyframes sheet-out {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(100%);
+  }
+}
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes fade-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+.sheet-panel[data-state="open"] {
+  animation: sheet-in 400ms var(--ease-drawer);
+}
+.sheet-panel[data-state="closed"] {
+  animation: sheet-out 300ms var(--ease-drawer);
+}
+.sheet-overlay[data-state="open"] {
+  animation: fade-in 400ms var(--ease-out);
+}
+.sheet-overlay[data-state="closed"] {
+  animation: fade-out 300ms var(--ease-out);
+}
+
+/* Menu links follow the panel in from the right. */
+@keyframes nav-in {
+  from {
+    opacity: 0;
+    transform: translateX(16px);
+  }
+}
+@keyframes nav-fade {
+  from {
+    opacity: 0;
+  }
+}
+.sheet-panel[data-state="open"] .nav-item {
+  animation: nav-in 300ms var(--ease-out) both;
+  animation-delay: calc(120ms + var(--i, 0) * 40ms);
+}
+
+/* Reduced motion: gentler, not zero. Keep fades, drop travel and spin. */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .spin-slow,
+  .marquee-track {
+    animation: none;
+  }
+  .sheet-panel[data-state="open"],
+  .sheet-panel[data-state="closed"] {
+    animation-name: fade-in;
+  }
+  .sheet-panel[data-state="closed"] {
+    animation-name: fade-out;
+  }
+  .sheet-panel[data-state="open"] .nav-item {
+    animation-name: nav-fade;
+  }
+}
