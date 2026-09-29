@@ -80,8 +80,11 @@ export function About() {
             <Reveal delay={0.12} as="article" className="border-t border-gold/60 pt-5">
               <h3 className="text-2xl font-normal text-chocolate-600">Lo que hacemos</h3>
               <p className="mt-3 leading-relaxed text-chocolate-700">
-                Fresas con chocolate hechas con ingredientes buenos, combinaciones que te sorprenden y una
-                presentación que da gusto abrir.
+                En <strong className="font-semibold text-chocolate-600">BerryMood</strong> transformamos fresas
+                frescas en una experiencia única, combinándolas con{" "}
+                <strong className="font-semibold text-chocolate-600">chocolate belga</strong> de la más alta calidad
+                y una variedad de <strong className="font-semibold text-chocolate-600">toppings premium</strong>,
+                creando combinaciones que sorprenden y una presentación que da gusto compartir.
               </p>
             </Reveal>
             <Reveal delay={0.18} as="article" className="border-t border-gold/60 pt-5">
@@ -173,7 +176,7 @@ const steps = [
   },
   {
     title: "El chocolate",
-    body: "Belga, derretido a la temperatura justa para que brille y truene al morderlo.",
+    body: "Belga, fundido y servido a la temperatura justa para cubrir cada fresa con una capa suave, brillante y deliciosa.",
   },
   {
     title: "El topping",
