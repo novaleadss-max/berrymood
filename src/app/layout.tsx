@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Bodoni_Moda, Jost } from "next/font/google";
 import "./globals.css";
+import { ScrollToTop } from "@/components/scroll-to-top";
 
 const bodoni = Bodoni_Moda({
   variable: "--font-bodoni",
@@ -76,6 +77,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="es-MX" className={`${bodoni.variable} ${jost.variable} antialiased`}>
       <body className="min-h-dvh">
+        <ScrollToTop />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
