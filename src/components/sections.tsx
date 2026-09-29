@@ -180,10 +180,6 @@ export function Visit() {
               <br />
               {site.address.city}
             </address>
-            <p className="mt-6 max-w-[44ch] text-sm leading-relaxed text-cream-muted">
-              Los horarios y los toppings de temporada los publicamos en Instagram. Mándanos DM si quieres
-              apartar una caja para regalo.
-            </p>
           </Reveal>
 
           <Reveal delay={0.14} className="mt-10 flex flex-wrap gap-3">
@@ -276,17 +272,6 @@ export function SiteFooter() {
           <p>© {new Date().getFullYear()} BerryMood. Chocolate &amp; Berry Lab.</p>
           <p>Chilpancingo, Guerrero</p>
         </div>
-        <p className="mt-6 text-center text-sm text-cream-muted/80">
-          Built with Claude Web Builder by{" "}
-          <a
-            href="https://tododeia.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="underline-offset-4 hover:underline"
-          >
-            Tododeia
-          </a>
-        </p>
       </div>
     </footer>
   );

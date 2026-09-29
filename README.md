@@ -24,6 +24,3 @@ Abre http://localhost:3000.
 
 Importa este repo en [Vercel](https://vercel.com/new). Detecta Next.js solo, no hay que configurar nada.
 
----
-
-Built with Claude Web Builder by [Tododeia](https://tododeia.com)
