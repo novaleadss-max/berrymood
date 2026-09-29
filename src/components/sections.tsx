@@ -76,7 +76,7 @@ export function About() {
             </p>
           </Reveal>
 
-          <div className="mt-12 grid gap-8 sm:grid-cols-2">
+          <div className="mt-12 max-w-[52ch]">
             <Reveal delay={0.12} as="article" className="border-t border-gold/60 pt-5">
               <h3 className="text-2xl font-normal text-chocolate-600">Lo que hacemos</h3>
               <p className="mt-3 leading-relaxed text-chocolate-700">
@@ -87,83 +87,8 @@ export function About() {
                 creando combinaciones que sorprenden y una presentación que da gusto compartir.
               </p>
             </Reveal>
-            <Reveal delay={0.18} as="article" className="border-t border-gold/60 pt-5">
-              <h3 className="text-2xl font-normal text-chocolate-600">A dónde vamos</h3>
-              <p className="mt-3 leading-relaxed text-chocolate-700">
-                Que cuando alguien piense en fresas con chocolate de verdad, piense en BerryMood. Por la
-                calidad, por la creatividad y por lo bonito que se ve cada vaso.
-              </p>
-            </Reveal>
           </div>
         </div>
-      </div>
-    </section>
-  );
-}
-
-const menu = [
-  {
-    name: "Fresas con chocolate",
-    body: "Fresas enteras bañadas en chocolate belga y terminadas con el topping que tú elijas. El clásico, bien hecho.",
-    tag: "El clásico",
-  },
-  {
-    name: "Fresas con crema",
-    body: "La receta de toda la vida: fresa recién cortada y crema suave. Sin inventos, solo mejores ingredientes.",
-    tag: "De siempre",
-  },
-  {
-    name: "Vasos BerryMood",
-    body: "Capas de fresa, chocolate y toppings hasta el borde. El de pistache es el que más nos piden.",
-    tag: "Favorito",
-  },
-  {
-    name: "Cajas para regalo",
-    body: "Para un cumpleaños, un aniversario o para quedar bien sin decir mucho. Las armamos a tu gusto.",
-    tag: "Para regalar",
-  },
-];
-
-export function Menu() {
-  return (
-    <section id="menu" aria-labelledby="menu-title" className="grain relative scroll-mt-4 bg-chocolate-900 py-section">
-      <div className="mx-auto grid max-w-[1440px] gap-12 px-4 sm:px-8 lg:grid-cols-12 lg:gap-6 lg:px-12">
-        <div className="lg:col-span-4">
-          <Reveal className="lg:sticky lg:top-16">
-            <p className="flex items-center gap-3 text-[0.7rem] font-medium tracking-[0.32em] text-gold">
-              <Sparkle className="size-3" />
-              EL MENÚ
-            </p>
-            <h2 id="menu-title" className="mt-6 text-fluid-2xl leading-[1.02] font-normal text-cream">
-              Cuatro formas de <span className="text-gilded italic">antojarte.</span>
-            </h2>
-            <p className="mt-6 max-w-[34ch] leading-relaxed text-cream-muted">
-              Los precios los tenemos en tienda. Muy pronto también van a estar aquí.
-            </p>
-          </Reveal>
-        </div>
-
-        <ol className="lg:col-span-7 lg:col-start-6">
-          {menu.map((item, i) => (
-            <Reveal
-              key={item.name}
-              as="li"
-              delay={i * 0.06}
-              className="grid grid-cols-[auto_1fr] gap-x-6 gap-y-3 border-t border-gold/20 py-8 last:border-b sm:grid-cols-[4rem_1fr_auto] sm:gap-x-8 sm:py-10"
-            >
-              <span className="font-heading text-xl text-gold italic sm:text-2xl" aria-hidden="true">
-                {String(i + 1).padStart(2, "0")}
-              </span>
-              <div>
-                <h3 className="text-fluid-xl leading-tight font-normal text-cream">{item.name}</h3>
-                <p className="mt-3 max-w-[48ch] leading-relaxed text-cream-muted">{item.body}</p>
-              </div>
-              <span className="col-start-2 self-start justify-self-start rounded-full border border-gold/30 px-3 py-1 text-[0.65rem] tracking-[0.2em] text-gold-soft uppercase sm:col-start-3 sm:mt-2">
-                {item.tag}
-              </span>
-            </Reveal>
-          ))}
-        </ol>
       </div>
     </section>
   );

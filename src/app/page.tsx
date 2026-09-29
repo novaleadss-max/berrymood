@@ -1,6 +1,6 @@
 import { SiteHeader } from "@/components/site-header";
 import { Hero } from "@/components/hero";
-import { About, BuildYourMood, Menu, SiteFooter, ValuesBand, Visit } from "@/components/sections";
+import { About, BuildYourMood, SiteFooter, ValuesBand, Visit } from "@/components/sections";
 
 export default function Home() {
   return (
@@ -10,7 +10,6 @@ export default function Home() {
         <Hero />
         <ValuesBand />
         <About />
-        <Menu />
         <BuildYourMood />
         <Visit />
       </main>

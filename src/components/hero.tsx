@@ -217,29 +217,6 @@ export function Hero() {
           ))}
         </motion.dl>
 
-        {/* Floating card — the reference's "side view" panel, as the house favorite. */}
-        <motion.aside
-          {...rise(1.15, 20)}
-          aria-label="Favorito de la casa"
-          className="relative z-20 overflow-hidden rounded-3xl border border-gold/20 bg-chocolate-950/55 p-5 backdrop-blur-md lg:col-span-4 lg:col-start-9 lg:row-start-2 lg:self-end lg:p-6"
-        >
-          <div className="flex items-start justify-between gap-4">
-            <div>
-              <p className="text-[0.65rem] tracking-[0.28em] text-gold">FAVORITO DE LA CASA</p>
-              <p className="mt-2 font-heading text-2xl text-cream">Vaso Pistache</p>
-            </div>
-            <span className="font-heading text-5xl leading-none text-cream/90 italic">
-              01
-            </span>
-          </div>
-          <div className="mt-5 flex items-end justify-between gap-4 border-t border-gold/15 pt-4">
-            <ul className="flex gap-5 text-[0.7rem] tracking-[0.16em] text-cream-muted uppercase">
-              <li>Fresa</li>
-              <li>Chocolate belga</li>
-              <li>Pistache</li>
-            </ul>
-          </div>
-        </motion.aside>
       </div>
     </section>
   );

@@ -15,7 +15,6 @@ export const site = {
     "https://www.google.com/maps/search/?api=1&query=Galer%C3%ADas%20Chilpancingo%2C%20Ren%C3%A9%20Ju%C3%A1rez%20Cisneros%20130%2C%20Chilpancingo%20de%20los%20Bravo%2C%20Gro.",
   nav: [
     { href: "#nosotros", label: "Nosotros" },
-    { href: "#menu", label: "Menú" },
     { href: "#arma-tu-mood", label: "Arma tu mood" },
     { href: "#visitanos", label: "Visítanos" },
   ],
