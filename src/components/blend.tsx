@@ -20,8 +20,8 @@ export function Blend({
   const ref = useRef<HTMLDivElement>(null);
   const reduce = useReducedMotion();
 
-  const { scrollYProgress: a } = useScroll({ target: ref, offset: ["start 0.95", "start 0.65"] });
-  const { scrollYProgress: b } = useScroll({ target: ref, offset: ["end 0.6", "end 0"] });
+  const { scrollYProgress: a } = useScroll({ target: ref, offset: ["start 0.95", "start 0.3"] });
+  const { scrollYProgress: b } = useScroll({ target: ref, offset: ["end 0.7", "end 0.05"] });
 
   const ease = (v: number) => 1 - Math.pow(1 - Math.min(1, Math.max(0, v)), 3);
 
@@ -29,15 +29,15 @@ export function Blend({
   const opacity = useTransform([a, b], ([va, vb]: number[]) => {
     const inn = enter ? ease(va) : 1;
     const out = exit ? ease(vb) : 0;
-    // Leaving barely fades: the content drifts, it doesn't dissolve.
-    return inn * (1 - 0.35 * out);
+    return inn * (1 - out);
   });
   const transform = useTransform([a, b], ([va, vb]: number[]) => {
     const inn = enter ? ease(va) : 1;
     const out = exit ? ease(vb) : 0;
     if (reduce || (inn >= 1 && out <= 0)) return "none";
-    const y = (1 - inn) * 28 - out * 36;
-    return `translateY(${y.toFixed(2)}px)`;
+    const y = (1 - inn) * 64 - out * 48;
+    const s = 0.96 + 0.04 * inn;
+    return `translateY(${y.toFixed(2)}px) scale(${s.toFixed(4)})`;
   });
 
   return (

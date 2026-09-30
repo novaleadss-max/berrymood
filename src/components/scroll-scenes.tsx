@@ -72,15 +72,15 @@ export function MoodScrolly({ steps }: { steps: Step[] }) {
   const fill = useMotionTemplate`scaleX(${p})`;
 
   // Enter/leave like the other sections: surface while rising, dissolve upward when done.
-  const { scrollYProgress: rise } = useScroll({ target: ref, offset: ["start 0.95", "start 0.65"] });
-  const { scrollYProgress: leave } = useScroll({ target: ref, offset: ["end 0.6", "end 0"] });
+  const { scrollYProgress: rise } = useScroll({ target: ref, offset: ["start 0.9", "start 0.1"] });
+  const { scrollYProgress: leave } = useScroll({ target: ref, offset: ["end 0.95", "end 0.2"] });
   const easeOut3 = (v: number) => 1 - Math.pow(1 - Math.min(1, Math.max(0, v)), 3);
-  const stageOpacity = useTransform([rise, leave], ([i, o]: number[]) => easeOut3(i) * (1 - 0.35 * easeOut3(o)));
+  const stageOpacity = useTransform([rise, leave], ([i, o]: number[]) => easeOut3(i) * (1 - easeOut3(o)));
   const stageTransform = useTransform([rise, leave], ([i, o]: number[]) => {
     const inn = easeOut3(i);
     const out = easeOut3(o);
     if (inn >= 1 && out <= 0) return "none";
-    return `translateY(${((1 - inn) * 28 - out * 36).toFixed(2)}px)`;
+    return `translateY(${((1 - inn) * 64 - out * 48).toFixed(2)}px) scale(${(0.96 + 0.04 * inn).toFixed(4)})`;
   });
 
   if (reduce) return <StaticMood steps={steps} />;
