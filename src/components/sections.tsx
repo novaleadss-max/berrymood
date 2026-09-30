@@ -3,7 +3,7 @@ import { ArrowUpRight, MapPin, Navigation } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { InstagramIcon, Leaf, Sparkle } from "@/components/icons";
-import { Reveal } from "@/components/reveal";
+import { Blend } from "@/components/blend";
 import { BezelLogo, MoodScrolly, ParallaxArch } from "@/components/scroll-scenes";
 import { site } from "@/lib/site";
 
@@ -39,15 +39,21 @@ export function About() {
     <section
       id="nosotros"
       aria-labelledby="nosotros-title"
-      className="scroll-mt-4 bg-cream py-section text-chocolate-600"
+      className="scroll-mt-4 text-chocolate-600"
+      style={{
+        background:
+          "linear-gradient(to bottom, #170c06 0, #fbf7f1 30vh, #fbf7f1 calc(100% - 30vh), #2a180c 100%)",
+        paddingBlock: "calc(var(--spacing-section) + 20vh)",
+      }}
     >
+      <Blend>
       <div className="mx-auto grid max-w-[1440px] gap-12 px-4 sm:px-8 lg:grid-cols-12 lg:gap-6 lg:px-12">
-        <Reveal className="lg:col-span-5">
+        <div className="lg:col-span-5">
           <ParallaxArch />
-        </Reveal>
+        </div>
 
         <div className="lg:col-span-6 lg:col-start-7 lg:self-center">
-          <Reveal>
+          <div>
             <p className="flex items-center gap-3 text-[0.7rem] font-medium tracking-[0.32em] text-gold-deep">
               <Leaf className="h-3 w-5" />
               QUIÉNES SOMOS
@@ -59,17 +65,17 @@ export function About() {
               Una fresa sola es fruta. <span className="italic text-gold-deep">Con chocolate premium</span> ya es otra
               historia.
             </h2>
-          </Reveal>
-          <Reveal delay={0.08}>
+          </div>
+          <div>
             <p className="mt-8 max-w-[52ch] text-fluid-base leading-relaxed text-chocolate-700">
               BerryMood nació de una idea sencilla: el postre de fresas que todos conocemos merecía un mejor
               trato. Por eso juntamos fruta fresca, chocolate premium y toppings que no encuentras en cualquier
               lado, y lo servimos con el cuidado de algo hecho para regalar. Aunque sea para ti.
             </p>
-          </Reveal>
+          </div>
 
           <div className="mt-12 max-w-[52ch]">
-            <Reveal delay={0.12} as="article" className="border-t border-gold/60 pt-5">
+            <div className="border-t border-gold/60 pt-5">
               <h3 className="text-2xl font-normal text-chocolate-600">Lo que hacemos</h3>
               <p className="mt-3 leading-relaxed text-chocolate-700">
                 En <strong className="font-semibold text-chocolate-600">BerryMood</strong> transformamos fresas
@@ -78,10 +84,11 @@ export function About() {
                 y una variedad de <strong className="font-semibold text-chocolate-600">toppings premium</strong>,
                 creando combinaciones que sorprenden y una presentación que da gusto compartir.
               </p>
-            </Reveal>
+            </div>
           </div>
         </div>
       </div>
+      </Blend>
     </section>
   );
 }
@@ -119,9 +126,14 @@ export function Visit() {
           background: "radial-gradient(50% 60% at 78% 50%, #4f2b15 0%, #2a180c 45%, #1e1109 80%)",
         }}
       />
+      <div
+        aria-hidden="true"
+        className="absolute inset-x-0 top-0 -z-10 h-[35vh] bg-gradient-to-b from-chocolate-800 to-transparent"
+      />
+      <Blend>
       <div className="mx-auto grid max-w-[1440px] items-center gap-14 px-4 sm:px-8 lg:grid-cols-12 lg:gap-6 lg:px-12">
         <div className="lg:col-span-6">
-          <Reveal>
+          <div>
             <p className="flex items-center gap-3 text-[0.7rem] font-medium tracking-[0.32em] text-gold">
               <MapPin className="size-3.5" aria-hidden="true" />
               VISÍTANOS
@@ -129,9 +141,9 @@ export function Visit() {
             <h2 id="visitanos-title" className="mt-6 text-fluid-2xl leading-[1.02] font-normal text-cream">
               Te esperamos en <span className="text-gilded italic">Galerías Chilpancingo.</span>
             </h2>
-          </Reveal>
+          </div>
 
-          <Reveal delay={0.08}>
+          <div>
             <address className="mt-10 border-l border-gold/50 pl-6 text-fluid-base leading-relaxed text-cream/85 not-italic">
               <span className="block font-heading text-2xl text-cream">{site.address.place}</span>
               {site.address.street}
@@ -140,9 +152,9 @@ export function Visit() {
               <br />
               {site.address.city}
             </address>
-          </Reveal>
+          </div>
 
-          <Reveal delay={0.14} className="mt-10 flex flex-wrap gap-3">
+          <div className="mt-10 flex flex-wrap gap-3">
             <Button asChild size="lg">
               <a href={site.mapsUrl} target="_blank" rel="noopener noreferrer">
                 <Navigation className="size-4" aria-hidden="true" />
@@ -158,13 +170,14 @@ export function Visit() {
                 <span className="sr-only">(abre Instagram en otra pestaña)</span>
               </a>
             </Button>
-          </Reveal>
+          </div>
         </div>
 
-        <Reveal delay={0.1} className="lg:col-span-5 lg:col-start-8">
+        <div className="lg:col-span-5 lg:col-start-8">
           <BezelLogo />
-        </Reveal>
+        </div>
       </div>
+      </Blend>
     </section>
   );
 }

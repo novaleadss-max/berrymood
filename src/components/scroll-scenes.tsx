@@ -71,6 +71,18 @@ export function MoodScrolly({ steps }: { steps: Step[] }) {
   const glow = useTransform(p, [0, 0.5, 1], [0.35, 0.8, 0.5]);
   const fill = useMotionTemplate`scaleX(${p})`;
 
+  // Enter/leave like the other sections: surface while rising, dissolve upward when done.
+  const { scrollYProgress: rise } = useScroll({ target: ref, offset: ["start 0.9", "start 0.1"] });
+  const { scrollYProgress: leave } = useScroll({ target: ref, offset: ["end 0.95", "end 0.2"] });
+  const easeOut3 = (v: number) => 1 - Math.pow(1 - Math.min(1, Math.max(0, v)), 3);
+  const stageOpacity = useTransform([rise, leave], ([i, o]: number[]) => easeOut3(i) * (1 - easeOut3(o)));
+  const stageTransform = useTransform([rise, leave], ([i, o]: number[]) => {
+    const inn = easeOut3(i);
+    const out = easeOut3(o);
+    if (inn >= 1 && out <= 0) return "none";
+    return `translateY(${((1 - inn) * 64 - out * 48).toFixed(2)}px) scale(${(0.96 + 0.04 * inn).toFixed(4)})`;
+  });
+
   if (reduce) return <StaticMood steps={steps} />;
 
   return (
@@ -91,7 +103,9 @@ export function MoodScrolly({ steps }: { steps: Step[] }) {
           }}
         />
 
-        <div className="relative mx-auto flex h-full max-w-[1440px] flex-col px-4 pt-20 pb-8 sm:px-8 lg:grid lg:grid-cols-12 lg:items-center lg:gap-6 lg:px-12 lg:py-0">
+        <motion.div
+          style={{ opacity: stageOpacity, transform: stageTransform }}
+          className="relative mx-auto flex h-full max-w-[1440px] flex-col px-4 pt-20 pb-8 sm:px-8 lg:grid lg:grid-cols-12 lg:items-center lg:gap-6 lg:px-12 lg:py-0">
           {/* Cup */}
           <div className="relative order-2 flex min-h-0 flex-1 items-center justify-center lg:order-1 lg:col-span-6 lg:h-full">
             <motion.div
@@ -143,7 +157,7 @@ export function MoodScrolly({ steps }: { steps: Step[] }) {
             ))}
           </ol>
           </div>
-        </div>
+        </motion.div>
       </div>
     </section>
   );
