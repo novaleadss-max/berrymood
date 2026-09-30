@@ -42,8 +42,8 @@ export function About() {
       className="scroll-mt-4 text-chocolate-600"
       style={{
         background:
-          "linear-gradient(to bottom, #170c06 0, #fbf7f1 30vh, #fbf7f1 calc(100% - 30vh), #2a180c 100%)",
-        paddingBlock: "calc(var(--spacing-section) + 20vh)",
+          "linear-gradient(to bottom, #170c06 0, #fbf7f1 10vh, #fbf7f1 calc(100% - 10vh), #2a180c 100%)",
+        paddingBlock: "calc(var(--spacing-section) + 4vh)",
       }}
     >
       <Blend>
@@ -128,7 +128,7 @@ export function Visit() {
       />
       <div
         aria-hidden="true"
-        className="absolute inset-x-0 top-0 -z-10 h-[35vh] bg-gradient-to-b from-chocolate-800 to-transparent"
+        className="absolute inset-x-0 top-0 -z-10 h-[14vh] bg-gradient-to-b from-chocolate-800 to-transparent"
       />
       <Blend>
       <div className="mx-auto grid max-w-[1440px] items-center gap-14 px-4 sm:px-8 lg:grid-cols-12 lg:gap-6 lg:px-12">
