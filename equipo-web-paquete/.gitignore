@@ -1,0 +1,35 @@
+# secretos
+.env
+.env.*
+!.env.example
+.mcp.json
+.claude/settings.local.json
+
+# toolkits clonados por scripts/setup.sh (cada uno es su propio repo git)
+/the-architect/
+/claude-webkit/
+/gsap-skills/
+/hyperframes/
+/google-skills/
+/scroll-world/
+
+# generados por sync-toolkits.sh desde los toolkits
+.claude/commands/architect*.md
+.claude/agents/blueprint-writer.md
+.claude/agents/blueprint-validator.md
+.claude/agents/stack-researcher.md
+.claude/skills/architect/
+
+# trabajo de clientes
+/sites/*
+!/sites/.gitkeep
+/cotizaciones/*
+!/cotizaciones/.gitkeep
+/blueprints/*
+!/blueprints/.gitkeep
+/vendor/animmaster-lib/*
+!/vendor/animmaster-lib/README.md
+
+node_modules/
+.playwright-cli/
+.gstack/

@@ -1,0 +1,26 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npx create-next-app*)",
+      "Bash(npx shadcn*)",
+      "Bash(npm install*)",
+      "Bash(npm run*)",
+      "Bash(npx vercel*)",
+      "Bash(npx next*)",
+      "Bash(bash .claude/skills*)",
+      "Bash(python3*search.py*)",
+      "Bash(node*)",
+      "Bash(git*)",
+      "Bash(mkdir*)",
+      "Bash(cp*)",
+      "Bash(mv*)",
+      "Bash(curl*)",
+      "Bash(chmod*)",
+      "Bash(touch*)",
+      "WebSearch",
+      "WebFetch"
+    ]
+  },
+  "enabledMcpjsonServers": ["magic-21st"],
+  "enableAllProjectMcpServers": true
+}

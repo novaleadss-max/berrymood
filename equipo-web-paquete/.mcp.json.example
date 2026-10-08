@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "magic-21st": {
+      "command": "bash",
+      "args": [
+        "-c",
+        "set -a && source __WORKSPACE__/.env && set +a && API_KEY=\"$API_KEY_21ST\" exec npx -y @21st-dev/magic@latest"
+      ]
+    }
+  }
+}
