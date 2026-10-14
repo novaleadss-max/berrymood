@@ -60,7 +60,9 @@ export function Hero() {
         }}
       />
 
-      {/* Gold ring echoing the logo's circle, with the lab name running around it. */}
+      {/* Gold ring echoing the logo's circle, with the lab name running around it.
+          data-hero-fade: hidden while the scroll story (hero-assembly.tsx) plays. */}
+      <div data-hero-fade>
       <motion.div
         aria-hidden="true"
         className="pointer-events-none absolute top-[58%] left-1/2 -z-10 aspect-square w-[min(118vw,560px)] -translate-x-1/2 -translate-y-1/2 lg:top-1/2 lg:w-[min(78vh,820px)]"
@@ -90,8 +92,9 @@ export function Hero() {
         <span className="absolute top-1/2 left-0 size-2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-gold" />
         <span className="absolute top-1/2 right-0 size-2 translate-x-1/2 -translate-y-1/2 rounded-full bg-gold" />
       </motion.div>
+      </div>
 
-      <div className="relative mx-auto grid min-h-[100svh] max-w-[1440px] grid-cols-1 gap-y-10 px-4 pt-28 pb-8 sm:px-8 lg:grid-cols-12 lg:grid-rows-[1fr_auto] lg:gap-x-6 lg:px-12 lg:pt-24 lg:pb-8">
+      <div data-hero-fade className="relative mx-auto grid min-h-[100svh] max-w-[1440px] grid-cols-1 gap-y-10 px-4 pt-28 pb-8 sm:px-8 lg:grid-cols-12 lg:grid-rows-[1fr_auto] lg:gap-x-6 lg:px-12 lg:pt-24 lg:pb-8">
         {/* Headline */}
         <div className="relative z-20 lg:col-span-6 lg:row-start-1 lg:self-center">
           <motion.p
