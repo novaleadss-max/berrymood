@@ -39,7 +39,7 @@ export function About() {
     <section
       id="nosotros"
       aria-labelledby="nosotros-title"
-      className="scroll-mt-4 bg-cream py-section text-chocolate-600"
+      className="scroll-mt-16 bg-cream py-section text-chocolate-600"
     >
       <div className="mx-auto grid max-w-[1440px] gap-12 px-4 sm:px-8 lg:grid-cols-12 lg:gap-6 lg:px-12">
         <Reveal className="lg:col-span-5">
@@ -110,7 +110,7 @@ export function Visit() {
     <section
       id="visitanos"
       aria-labelledby="visitanos-title"
-      className="grain relative isolate scroll-mt-4 overflow-hidden bg-chocolate-900 py-section"
+      className="grain relative isolate scroll-mt-16 overflow-hidden bg-chocolate-900 py-section"
     >
       <div
         aria-hidden="true"

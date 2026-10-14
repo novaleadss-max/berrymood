@@ -78,7 +78,7 @@ export function MoodScrolly({ steps }: { steps: Step[] }) {
       ref={ref}
       id="arma-tu-mood"
       aria-labelledby="arma-title"
-      className="relative scroll-mt-4 bg-chocolate-800"
+      className="relative scroll-mt-16 bg-chocolate-800"
       style={{ height: `${steps.length * 100 + 60}svh` }}
     >
       <div className="sticky top-0 h-[100svh] overflow-hidden">
@@ -193,7 +193,7 @@ function StaticMood({ steps }: { steps: Step[] }) {
     <section
       id="arma-tu-mood"
       aria-labelledby="arma-title"
-      className="relative scroll-mt-4 overflow-hidden bg-chocolate-800 py-section"
+      className="relative scroll-mt-16 overflow-hidden bg-chocolate-800 py-section"
     >
       <div className="mx-auto max-w-[1440px] px-4 sm:px-8 lg:px-12">
         <Reveal className="grid gap-6 lg:grid-cols-12 lg:items-end">

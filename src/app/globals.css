@@ -159,6 +159,28 @@
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
+/* ---------- Apple-style product bar ---------- */
+
+.site-bar {
+  background-color: rgb(23 12 6 / 0);
+  border-bottom: 1px solid rgb(194 136 58 / 0);
+  transition:
+    background-color 240ms var(--ease-out),
+    border-color 240ms var(--ease-out),
+    backdrop-filter 240ms var(--ease-out);
+}
+.site-bar[data-scrolled="true"] {
+  background-color: rgb(23 12 6 / 0.72);
+  border-bottom-color: rgb(194 136 58 / 0.14);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  backdrop-filter: saturate(180%) blur(20px);
+}
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .site-bar[data-scrolled="true"] {
+    background-color: rgb(23 12 6 / 0.94);
+  }
+}
+
 /* ---------- Ambient motion (marketing surfaces only) ---------- */
 
 @keyframes spin-slow {
