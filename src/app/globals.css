@@ -159,37 +159,10 @@
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
-/* ---------- Hero · armado del vaso (hero-assembly.tsx) ---------- */
+/* ---------- Hero · secuencia de fotos (hero-sequence.tsx) ---------- */
 
-.assembly {
-  --bn: var(--bn-m);
-}
-@media (min-width: 1024px) {
-  .assembly {
-    --bn: var(--bn-d);
-  }
-}
-/* Cada fresa mide --bn % del ancho del vaso */
-.assembly .berry {
-  width: calc(var(--bn) * 1%);
-  max-width: none;
-}
-/* Posición inicial (antes de que cargue JS): una fresa grande al centro.
-   Debe coincidir con el gsap.set inicial. 0.6662 = alto/ancho de fresa × 720/1109 */
-.assembly .berry-intro {
-  transform: translate(
-      calc((50 - var(--bn) / 2) / var(--bn) * 100%),
-      calc((40 - var(--bn) * 0.3331) / (var(--bn) * 0.6662) * 100%)
-    )
-    rotate(-10deg) scale(var(--intro));
-}
-.assembly [data-cup],
-.assembly [data-stream] {
-  opacity: 0;
-}
-/* Sin animación: se ve directamente el hero terminado */
 @media (prefers-reduced-motion: reduce) {
-  .assembly {
+  .seq {
     display: none;
   }
 }
