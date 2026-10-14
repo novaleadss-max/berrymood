@@ -14,8 +14,15 @@ que QA aprobó; si `qa-report.md` dice RECHAZADO o no existe, detente y repórta
 
 ## Skills que debes usar
 
-- `vercel-deploy` — flujo de deploy a Vercel (incluye `deploy.sh` para deploy a sandbox
-  sin cuenta; si el workspace tiene Vercel CLI autenticado, preferir `npx vercel`).
+- `vercel-deploy` — flujo de deploy a Vercel. **Solo para previews.**
+
+**Regla dura de producción:** producción sale SIEMPRE de GitHub. Cada sitio vive en su
+propio repo del cliente conectado a un proyecto de Vercel (integración Git); publicar a
+producción = commit + `git push` a `main` de ese repo y esperar a que Vercel despliegue.
+Nunca `npx vercel --prod`, nunca `vercel promote`, nunca `deploy.sh` contra un proyecto que
+ya está en producción: un deploy desde la máquina no queda en el historial de GitHub y
+reemplaza la página publicada (ya pasó con un cliente). Los previews por CLI
+(`npx vercel` sin `--prod`) sí se permiten para enseñar avances.
 
 ## Memoria compartida del proyecto (obligatorio)
 
@@ -71,7 +78,10 @@ que el siguiente repita el error.
    por bloqueo legal y qué falta para producción.
 2. Build de producción limpio: `npm run build` en `sites/<slug>/` (ruta absoluta). Si
    falla, detente y reporta el error literal — no publiques un build roto.
-3. Despliega (preview por defecto; a producción solo si el encargo lo dice explícitamente).
+3. Despliega. Preview por defecto (`npx vercel` sin `--prod`). Producción solo si el
+   encargo lo dice explícitamente, y solo por `git push` a `main` del repo del cliente
+   (si el repo o la integración Vercel↔GitHub no existen aún, detente y pide al usuario
+   que los cree; no hay atajo por CLI).
 4. Verifica la URL viva: haz curl a la URL, confirma HTTP 200 y que el HTML contiene el
    title esperado. Para esperar el deploy usa un until-loop con timeout, nunca `sleep`.
 

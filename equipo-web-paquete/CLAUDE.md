@@ -136,6 +136,30 @@ completos y verificados viven en `.claude/skills/ui-libraries/references/` — c
 ahí en vez de navegar los sitios. Todo componente se adapta a DESIGN.md, copy-deck y
 motion (`framer-motion` → `motion/react`) antes de integrarse; nada queda a stock.
 
+## Skills de diseño premium (propias del estudio, en `.claude/skills/`)
+
+Vendorizadas con versión fija (no se sincronizan desde toolkits):
+
+| Skill | Origen | Licencia | Uso en el pipeline |
+|-------|--------|----------|--------------------|
+| `design-taste-frontend` (Taste) | Leonxlnx/taste-skill @ `f624f37` | MIT | `design-system`: dirección de arte al definir DESIGN.md (idea, composición, tipo, paleta, fotos) |
+| `redesign-existing-projects` | Leonxlnx/taste-skill @ `f624f37` | MIT | Rediseño de sitios ya construidos o de clientes que traen web |
+| `impeccable` | pbakaus/impeccable @ `2f98774` (v4.5.2) | Apache-2.0 | `design-system`: `/impeccable critique` y `bolder`/`quieter`; `frontend-builder`: `typeset`, `layout`; `qa-visual`: `/impeccable audit` + `/impeccable polish` como gate obligatorio antes de deploy |
+
+Precedencia cuando chocan: **motion** lo decide la cadena de Emil Kowalski del webkit
+(`animate` → `emil-design-eng` → `apple-design`), no `/impeccable animate`. **Tipo, color y
+layout**: Taste + Impeccable + `frontend-design`. El `DESIGN.md` del proyecto vive en
+`sites/<slug>/docs/DESIGN.md`; si Impeccable crea `PRODUCT.md`/`DESIGN.md` en la raíz del
+sitio, se consolidan en `docs/` y se borran de la raíz.
+
+Impeccable descarga su motor la primera vez (`~/.impeccable/bin/`). Para sus hooks de
+edición en vivo: `npx impeccable install` (opcional; el skill funciona sin ellos).
+
+Ver la página: **Playwright MCP** (`playwright` en `.mcp.json`) para capturas en
+375/768/1440 px; `qa-visual` lo usa antes que `playwright-cli`. **Figma MCP** (opcional,
+requiere la cuenta del estudio): `/plugin install figma@claude-plugins-official` dentro de
+Claude Code.
+
 ## Video: HyperFrames (`hyperframes/`)
 
 Framework OSS de HeyGen que renderiza MP4 determinista desde HTML + CSS + animaciones
