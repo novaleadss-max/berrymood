@@ -271,3 +271,23 @@
     animation-name: nav-fade;
   }
 }
+
+/* ---------- Galería conectada (connected-grid.tsx) ---------- */
+
+.connected-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+
+@media (min-width: 53em) {
+  .connected-grid {
+    grid-template-columns: repeat(8, 1fr);
+    gap: clamp(32px, 3.4vw, 48px);
+  }
+
+  .connected-item {
+    grid-row: var(--r);
+    grid-column: var(--c) / span var(--s, 1);
+  }
+}
