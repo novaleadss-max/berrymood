@@ -78,19 +78,9 @@ export function HeroVideo({ children }: { children: ReactNode }) {
             transition: `opacity ${VIDEO.fadeMs}ms cubic-bezier(0.23, 1, 0.32, 1)`,
           }}
         >
-          {/* Pantallas anchas: el mismo video, ampliado y desenfocado, rellena los lados */}
-          <video
-            className="absolute inset-0 hidden h-full w-full scale-110 object-cover blur-2xl brightness-75 md:block"
-            src={VIDEO.src}
-            muted
-            playsInline
-            autoPlay
-            preload="auto"
-            tabIndex={-1}
-          />
           <video
             ref={videoRef}
-            className="absolute inset-0 h-full w-full object-cover md:object-contain"
+            className="absolute inset-0 h-full w-full object-cover"
             src={VIDEO.src}
             poster={VIDEO.poster}
             muted
