@@ -10,9 +10,10 @@
    (más fresas, chocolate, pistache). Si subes, se regresa. La sección se queda
    fija (pin) y al final la foto se funde con el hero y su texto.
 
-   Imágenes: /public/images/sequence/01.webp … NN.webp (escritorio, 928×1152)
-             /public/images/sequence/m/01.webp … NN.webp (celular, 600×745)
-   Para reemplazarlas: mismo nombre, mismo encuadre, y ajusta SEQ.total.
+   Cuadros: sacados del video (12 por segundo) →
+             /public/images/sequence/001.webp … 108.webp (escritorio, 720×1280)
+             /public/images/sequence/m/001.webp … 108.webp (celular, 480×853)
+   Para cambiar el video: exporta los cuadros con el mismo nombre y ajusta SEQ.total.
    ========================================================================== */
 
 import { useRef, type ReactNode } from "react";
@@ -24,18 +25,18 @@ gsap.registerPlugin(ScrollTrigger, useGSAP);
 
 /* ---------- AJUSTES (cambia aquí) ----------------------------------------- */
 const SEQ = {
-  /** Cuántas imágenes hay en /images/sequence (01.webp … NN.webp). */
-  total: 8,
-  /** Cuántas se reproducen solas al entrar (fase 1). El resto va con el scroll. */
-  autoFrames: 4,
+  /** Cuántos cuadros hay en /images/sequence (001.webp … NNN.webp). */
+  total: 108,
+  /** Cuántos se reproducen solos al entrar (fase 1): la fresa cae dentro del vaso. */
+  autoFrames: 22,
   /** Duración de la fase 1, en segundos. */
-  autoDuration: 2.8,
+  autoDuration: 2,
   /** "crossfade" = fundido entre cuadros · "cut" = cambio directo. */
   transition: "crossfade" as "crossfade" | "cut",
-  /** Qué parte de cada cuadro dura el fundido (0–1). Más alto = más suave. */
-  crossfade: 0.5,
+  /** Qué parte de cada cuadro dura el fundido (0–1). Con video, 1 = continuo. */
+  crossfade: 1,
   /** Cuánto scroll dura la fase 2, en "pantallas" (1 = alto de la pantalla). */
-  scrollLength: { desktop: 3, mobile: 2.4 },
+  scrollLength: { desktop: 3.5, mobile: 3 },
   /** Suavizado del scroll (1 = fluido; 0 = pegado al dedo). */
   scrub: 1,
   /** Última parte del scroll en la que la foto se funde con el hero (0–1). */
@@ -44,7 +45,7 @@ const SEQ = {
   path: "/images/sequence",
 };
 
-const pad = (n: number) => String(n).padStart(2, "0");
+const pad = (n: number) => String(n).padStart(3, "0");
 const clamp01 = (v: number) => Math.min(1, Math.max(0, v));
 const smooth = (t: number) => t * t * (3 - 2 * t);
 
@@ -73,7 +74,7 @@ export function HeroSequence({ children }: { children: ReactNode }) {
       const isMobile = window.innerWidth < 768;
       const dir = isMobile ? `${SEQ.path}/m` : SEQ.path;
       const frames: HTMLImageElement[] = [];
-      const state = { f: 0, drop: 0 }; // f = cuadro (con decimales); drop = caída inicial
+      const state = { f: 0 }; // cuadro actual (con decimales para el fundido)
       let cancelled = false;
 
       gsap.set(heroLayers, { autoAlpha: 0 });
@@ -101,13 +102,13 @@ export function HeroSequence({ children }: { children: ReactNode }) {
         canvas.height = Math.round(canvas.clientHeight * dpr);
         draw();
       };
-      const paint = (img: HTMLImageElement, alpha: number, dy = 0) => {
+      const paint = (img: HTMLImageElement, alpha: number) => {
         if (!img?.complete || alpha <= 0) return;
         const s = Math.min(canvas.width / img.naturalWidth, canvas.height / img.naturalHeight);
         const w = img.naturalWidth * s;
         const h = img.naturalHeight * s;
         ctx.globalAlpha = alpha;
-        ctx.drawImage(img, (canvas.width - w) / 2, (canvas.height - h) / 2 + dy * h, w, h);
+        ctx.drawImage(img, (canvas.width - w) / 2, (canvas.height - h) / 2, w, h);
       };
       function draw() {
         ctx!.globalAlpha = 1;
@@ -118,23 +119,30 @@ export function HeroSequence({ children }: { children: ReactNode }) {
         const t = f - i;
         const mix =
           SEQ.transition === "cut" ? (t >= 0.5 ? 1 : 0) : smooth(clamp01((t - (1 - SEQ.crossfade)) / SEQ.crossfade));
-        // el primer cuadro "cae" a su lugar al inicio (no aparece estático)
-        paint(frames[i], 1, i === 0 ? -state.drop : 0);
-        if (i < last) paint(frames[i + 1], mix);
-        feather(frames[i], i === 0 ? -state.drop : 0);
+        const base = nearestLoaded(i);
+        if (!base) return;
+        paint(base, 1);
+        if (i < last && frames[i + 1]?.complete && frames[i + 1].naturalWidth) paint(frames[i + 1], mix);
+        feather(base);
+      }
+
+      /* Si un cuadro aún no carga (scroll muy rápido), usa el anterior más cercano. */
+      function nearestLoaded(i: number) {
+        for (let k = i; k >= 0; k--) if (frames[k]?.complete && frames[k].naturalWidth) return frames[k];
+        return null;
       }
 
       /* Bordes de la foto fundidos con el chocolate oscuro de la página, para que
          no se vea un rectángulo pegado sino parte del sitio. */
       const BG = "23, 12, 6"; // = chocolate-950
-      function feather(img: HTMLImageElement, dy = 0) {
+      function feather(img: HTMLImageElement) {
         if (!img?.complete) return;
         const c = ctx!;
         const s = Math.min(canvas!.width / img.naturalWidth, canvas!.height / img.naturalHeight);
         const w = img.naturalWidth * s;
         const h = img.naturalHeight * s;
         const x = (canvas!.width - w) / 2;
-        const y = (canvas!.height - h) / 2 + dy * h;
+        const y = (canvas!.height - h) / 2;
         const F = Math.min(w, h) * 0.16;
         c.globalAlpha = 1;
         const edge = (x0: number, y0: number, x1: number, y1: number, rx: number, ry: number, rw: number, rh: number) => {
@@ -164,7 +172,7 @@ export function HeroSequence({ children }: { children: ReactNode }) {
           img.decoding = "async";
           img.onload = () => {
             loaded++;
-            bar.style.transform = `scaleX(${loaded / SEQ.total})`;
+            bar.style.transform = `scaleX(${Math.min(1, loaded / Math.min(SEQ.total, SEQ.autoFrames + 6))})`;
             resolve();
           };
           img.onerror = () => reject(new Error(`No cargó ${dir}/${pad(n)}.webp`));
@@ -172,8 +180,14 @@ export function HeroSequence({ children }: { children: ReactNode }) {
           frames[n - 1] = img;
         });
 
-      Promise.all(Array.from({ length: SEQ.total }, (_, k) => load(k + 1)))
+      // Primero los cuadros de la intro (arranca rápido, sobre todo en celular);
+      // el resto se carga en segundo plano mientras se ve la fase 1.
+      const first = Math.min(SEQ.total, SEQ.autoFrames + 6);
+      const rest = () =>
+        Promise.all(Array.from({ length: SEQ.total - first }, (_, k) => load(first + k + 1).catch(() => undefined)));
+      Promise.all(Array.from({ length: first }, (_, k) => load(k + 1)))
         .then(() => {
+          void rest();
           if (cancelled) return;
           resize();
           window.addEventListener("resize", resize);
@@ -188,12 +202,10 @@ export function HeroSequence({ children }: { children: ReactNode }) {
           });
           intro
             .fromTo(canvas, { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.7, ease: "power1.out" })
-            .fromTo(state, { drop: 0.35 }, { drop: 0, duration: 0.9, ease: "power2.in", onUpdate: draw }, 0)
-            .to(state, { f: auto - 1, duration: SEQ.autoDuration, ease: "none", onUpdate: draw }, 0.5);
+            .to(state, { f: auto - 1, duration: SEQ.autoDuration, ease: "none", onUpdate: draw }, 0.3);
 
           if (skipIntro) {
             state.f = auto - 1;
-            state.drop = 0;
             gsap.set(canvas, { autoAlpha: 1 });
             draw();
             startScroll();
