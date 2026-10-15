@@ -161,6 +161,13 @@
 
 /* ---------- Hero · video de entrada (hero-video.tsx) ---------- */
 
+/* Computadora: las orillas del video se funden con los lados (pared y mesa) */
+@media (min-width: 768px) {
+  .hero-video video {
+    mask-image: linear-gradient(90deg, transparent calc(50% - 28.125svh), #000 calc(50% - 25svh), #000 calc(50% + 25svh), transparent calc(50% + 28.125svh));
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .hero-video {
     display: none;

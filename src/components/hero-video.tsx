@@ -18,6 +18,9 @@ import { useEffect, useRef, useState, type ReactNode } from "react";
 const VIDEO = {
   src: "/video/armado.mp4",
   poster: "/video/armado-poster.webp",
+  /** Orillas del video estiradas: rellenan los lados en computadora. */
+  sideLeft: "/video/armado-lado-izq.webp",
+  sideRight: "/video/armado-lado-der.webp",
   /** Duración del fundido final hacia el hero, en ms. */
   fadeMs: 900,
   /** Si el video no termina por algo (red lenta), mostrar el hero a los N ms. */
@@ -74,13 +77,18 @@ export function HeroVideo({ children }: { children: ReactNode }) {
           aria-hidden="true"
           className="hero-video pointer-events-none absolute inset-x-0 top-0 z-30 h-svh overflow-hidden bg-[#4b4a4c]"
           style={{
+            // Pantallas anchas: los lados continúan la pared gris y la mesa del video
+            backgroundImage: `url(${VIDEO.sideLeft}), url(${VIDEO.sideRight})`,
+            backgroundSize: "50.5% 100%",
+            backgroundPosition: "left, right",
+            backgroundRepeat: "no-repeat",
             opacity: phase === "fading" ? 0 : 1,
             transition: `opacity ${VIDEO.fadeMs}ms cubic-bezier(0.23, 1, 0.32, 1)`,
           }}
         >
           <video
             ref={videoRef}
-            className="absolute inset-0 h-full w-full object-cover"
+            className="absolute inset-0 h-full w-full object-cover md:object-contain"
             src={VIDEO.src}
             poster={VIDEO.poster}
             muted
