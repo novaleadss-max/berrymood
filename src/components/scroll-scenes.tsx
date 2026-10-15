@@ -71,6 +71,12 @@ export function MoodScrolly({ steps }: { steps: Step[] }) {
   const glow = useTransform(p, [0, 0.5, 1], [0.35, 0.8, 0.5]);
   const fill = useMotionTemplate`scaleX(${p})`;
 
+  // Fondo: la charola de fresas aparece mientras la sección sube y se queda
+  // durante los tres pasos, con un acercamiento muy lento (profundidad).
+  const { scrollYProgress: enter } = useScroll({ target: ref, offset: ["start 0.75", "start start"] });
+  const bgOpacity = useTransform(enter, (v) => Math.min(1, Math.max(0, v)));
+  const bgScale = useTransform(p, (v) => `scale(${(1.12 - 0.1 * Math.min(1, Math.max(0, v))).toFixed(4)})`);
+
   if (reduce) return <StaticMood steps={steps} />;
 
   return (
@@ -82,6 +88,28 @@ export function MoodScrolly({ steps }: { steps: Step[] }) {
       style={{ height: `${steps.length * 100 + 60}svh` }}
     >
       <div className="sticky top-0 h-[100svh] overflow-hidden">
+        {/* Charola de fresas de fondo + capa oscura para que el texto se lea */}
+        <motion.div aria-hidden="true" className="pointer-events-none absolute inset-0" style={{ opacity: bgOpacity }}>
+          <motion.div className="absolute inset-0 will-change-transform" style={{ transform: bgScale }}>
+            <picture>
+              <source media="(max-width: 767px)" srcSet="/images/fresas-charola-m.webp" />
+              <img
+                src="/images/fresas-charola.webp"
+                alt=""
+                loading="lazy"
+                decoding="async"
+                className="h-full w-full object-cover"
+              />
+            </picture>
+          </motion.div>
+          <div
+            className="absolute inset-0"
+            style={{
+              background:
+                "linear-gradient(180deg, rgba(23,12,6,0.55) 0%, rgba(23,12,6,0.35) 40%, rgba(23,12,6,0.7) 100%), linear-gradient(90deg, rgba(23,12,6,0.15) 0%, rgba(23,12,6,0.25) 50%, rgba(23,12,6,0.6) 100%)",
+            }}
+          />
+        </motion.div>
         <motion.div
           aria-hidden="true"
           className="pointer-events-none absolute inset-0"
