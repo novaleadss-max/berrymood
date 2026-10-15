@@ -71,10 +71,9 @@ export function MoodScrolly({ steps }: { steps: Step[] }) {
   const glow = useTransform(p, [0, 0.5, 1], [0.35, 0.8, 0.5]);
   const fill = useMotionTemplate`scaleX(${p})`;
 
-  // Fondo: la charola de fresas aparece mientras la sección sube y se queda
-  // durante los tres pasos, con un acercamiento muy lento (profundidad).
-  const { scrollYProgress: enter } = useScroll({ target: ref, offset: ["start 0.75", "start start"] });
-  const bgOpacity = useTransform(enter, (v) => Math.min(1, Math.max(0, v)));
+  // Fondo: al entrar se ve café; conforme avanzan los pasos aparece poco a
+  // poco la charola de fresas, con un acercamiento muy lento (profundidad).
+  const bgOpacity = useTransform(p, (v) => Math.min(1, Math.max(0, (v - 0.12) / 0.5)));
   const bgScale = useTransform(p, (v) => `scale(${(1.12 - 0.1 * Math.min(1, Math.max(0, v))).toFixed(4)})`);
 
   if (reduce) return <StaticMood steps={steps} />;
