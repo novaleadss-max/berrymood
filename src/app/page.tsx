@@ -1,6 +1,5 @@
 import { SiteHeader } from "@/components/site-header";
-import { Hero } from "@/components/hero";
-import { HeroSequence } from "@/components/hero-sequence";
+import { HeroSlideshow } from "@/components/hero-slideshow";
 import { About, BuildYourMood, SiteFooter, ValuesBand, Visit } from "@/components/sections";
 
 export default function Home() {
@@ -8,9 +7,7 @@ export default function Home() {
     <>
       <SiteHeader />
       <main>
-        <HeroSequence>
-          <Hero />
-        </HeroSequence>
+        <HeroSlideshow />
         <ValuesBand />
         <About />
         <BuildYourMood />
