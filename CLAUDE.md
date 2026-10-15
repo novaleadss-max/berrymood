@@ -51,6 +51,8 @@ Next.js 16 (App Router) + Tailwind 4 + `motion` (`motion/react`). Radix para el 
 | Movimiento | `animate` → `emil-design-eng` → `apple-design` | Toda animación. Estas mandan sobre cualquier otra guía de motion |
 | Revisar movimiento | `review-animations` (solo la activa el usuario con `/review-animations`), `find-animation-opportunities` | Después de animar |
 | Variantes | `prototype` | Cuando el usuario no sabe qué quiere en una sección |
+| Rendimiento de animación | `animation-performance` | Si algo se traba o va a tirones |
+| Romper la UI | `break-ui` | Probar casos raros (textos largos, pantallas chicas) antes de publicar |
 | Ver la página | Playwright MCP (`.mcp.json`) | Capturas en 375 / 768 / 1440 px |
 
 Si dos skills se contradicen: motion lo decide la cadena de Emil Kowalski; tipografía,
