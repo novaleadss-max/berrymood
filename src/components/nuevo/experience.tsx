@@ -4,7 +4,7 @@
    BERRYMOOD · EXPERIENCIA (director de orquesta)
 
    Orden de arranque:
-     1. Preloader: carga fuentes, los primeros cuadros del vaso y la fresa 3D.
+     1. Preloader: carga fuentes, los primeros cuadros del vaso y de la fresa.
      2. Lenis (scroll suave) conectado a ScrollTrigger.
      3. Capítulos, de arriba a abajo (el orden importa para los pins).
      4. El chocolate que cubre el preloader escurre hacia abajo y empieza el inicio.
@@ -48,8 +48,7 @@ import {
 } from "./interactions";
 import { Armado, Chrome, Footer, Galeria, Hero, Historia, Marquee, Menu, Pidelo } from "./markup";
 import { FrameSequence } from "./sequence";
-import type { BerrySprite } from "./sprite";
-import type { BerryScene } from "./strawberry";
+import { BerryReal } from "./real-berry";
 
 gsap.registerPlugin(ScrollTrigger, SplitText);
 
@@ -58,21 +57,6 @@ type Key = { at: number; p: Pose; linear?: boolean };
 
 const wait = (ms: number) => new Promise((r) => setTimeout(r, ms));
 
-/** ¿Hay aceleración 3D real? (Sin GPU el 3D se dibuja por software y satura el procesador.) */
-function hasGpu() {
-  if ((window as { __BM_FORCE_GPU?: boolean }).__BM_FORCE_GPU) return true;
-  try {
-    const c = document.createElement("canvas");
-    const gl = c.getContext("webgl2") ?? c.getContext("webgl");
-    if (!gl) return false;
-    const ext = gl.getExtension("WEBGL_debug_renderer_info");
-    const name = ext ? String(gl.getParameter(ext.UNMASKED_RENDERER_WEBGL)) : "";
-    gl.getExtension("WEBGL_lose_context")?.loseContext();
-    return !/swiftshader|llvmpipe|software|basic render/i.test(name);
-  } catch {
-    return false;
-  }
-}
 const smooth = (t: number) => t * t * (3 - 2 * t);
 
 export function Experience() {
@@ -93,19 +77,19 @@ export function Experience() {
     const cleanups: (() => void)[] = [];
     const ctx = gsap.context(() => {}, el);
     let lenis: Lenis | null = null;
-    let berry: BerryScene | BerrySprite | null = null;
+    let berry: BerryReal | null = null;
 
     /* ---------- 1. Preloader --------------------------------------------- */
     const liquid = q(".bm-pre-liquid");
     const counter = q(".bm-pre-count span");
     const shown = { p: 0 };
-    const parts = { frames: 0, fonts: 0, three: 0 };
+    const parts = { frames: 0, fonts: 0, fresa: 0 };
     const paint = () => {
       gsap.set(liquid, { yPercent: 100 - shown.p * 100 });
       counter.textContent = String(Math.round(shown.p * 100));
     };
     const report = () => {
-      const target = parts.frames * 0.6 + parts.fonts * 0.15 + parts.three * 0.25;
+      const target = parts.frames * 0.6 + parts.fonts * 0.15 + parts.fresa * 0.25;
       gsap.to(shown, { p: target, duration: 0.6, ease: "power2.out", overwrite: true, onUpdate: paint });
     };
     paint();
@@ -127,25 +111,12 @@ export function Experience() {
           parts.fonts = 1;
           report();
         }),
-        (hasGpu()
-          ? import("./strawberry").then((m) => {
-              if (disposed) return;
-              try {
-                berry = new m.BerryScene(q<HTMLCanvasElement>(".bm-berry"), { mobile, reduced });
-              } catch {
-                berry = null;
-              }
-            })
-          : Promise.resolve()
-        )
-          .then(async () => {
-            if (berry || disposed) return;
-            // Sin GPU: la misma fresa como imagen ligera (no se descarga Three.js).
-            const m = await import("./sprite");
-            berry = new m.BerrySprite(q(".bm-berry-sprite"), reduced);
-          })
+        (async () => {
+          berry = new BerryReal(q(".bm-berry-sprite"), { mobile, reduced });
+          await berry.loadFirst();
+        })()
           .finally(() => {
-            parts.three = 1;
+            parts.fresa = 1;
             report();
           }),
         wait(TIEMPO.preloaderMinimo * 1000),
@@ -155,7 +126,8 @@ export function Experience() {
         gsap.to(shown, { p: 1, duration: 0.35, ease: "power2.out", overwrite: true, onUpdate: paint, onComplete: r }),
       );
       if (disposed) return;
-      if (!reduced) seq.loadRest();
+      if (!reduced) seq.loadRest().then(() => berry?.loadRest());
+      else berry?.loadRest();
       ctx.add(() => setup());
     };
     boot();
@@ -491,7 +463,7 @@ export function Experience() {
         cleanups.push(createChocolateTrail(close, q<HTMLCanvasElement>(".bm-trail"), mobile));
       }
 
-      /* ---- Fresa 3D: su recorrido por la página ------------------------- */
+      /* ---- Fresa: su recorrido por la página ------------------------- */
       // Poses en puntos del scroll; entre ellas se interpola (suave, o lineal si va
       // pegada a algo que se mueve). Se recalcula en cada refresh de ScrollTrigger.
       let keys: Key[] = [];
@@ -511,7 +483,7 @@ export function Experience() {
           ? pose({ x: 0.18, y: -0.3, s: 0.24, spin: Math.PI * 5, tilt: -0.2 })
           : pose({ x: 0.08, y: -0.02, s: 0.42, spin: Math.PI * 5, tilt: -0.25 });
         const closeP = mobile
-          ? pose({ x: 0.3, y: 0.34, s: 0.2, spin: Math.PI * 8, tilt: 0.2 })
+          ? pose({ x: 0.3, y: 0.27, s: 0.17, spin: Math.PI * 8, tilt: 0.2 })
           : pose({ x: 0.28, y: 0.02, s: 0.5, spin: Math.PI * 8, tilt: 0.2 });
         keys = [
           { at: heroST.start, p: heroP },

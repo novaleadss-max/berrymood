@@ -209,17 +209,22 @@ export const CAPITULOS = [
 
 /* ---------- Sorpresas ----------------------------------------------------- */
 export const SORPRESAS = {
-  /** Fresas 3D que llueven al tocar el logo (o al escribir "fresa"). */
+  /** Fresas que llueven al tocar el logo (o al escribir "fresa"). */
   lluvia: { escritorio: 70, movil: 28, palabraSecreta: "fresa" },
   /** Chocolate que se derrite siguiendo el cursor en "Pídelo". */
   rastro: { gotasMax: 90, gotasMaxMovil: 40 },
 };
 
-/* ---------- Fresa 3D ------------------------------------------------------ */
-export const FRESA_3D = {
-  semillas: { escritorio: 520, movil: 320 },
-  /** Cuánto se inclina siguiendo el mouse (radianes). */
-  inclinacion: 0.45,
-  flotar: { altura: 0.06, velocidad: 0.9 },
-  giro: 0.18, // vueltas por segundo en reposo (lento)
+/* ---------- Fresa real (video de Gemini) --------------------------------- */
+export const FRESA_REAL = {
+  escritorio: { ruta: "/nuevo/fresa-real/d", total: 80 },
+  movil: { ruta: "/nuevo/fresa-real/m", total: 48 },
+  /** Cuadros que se cargan antes de quitar el preloader (el resto llega después). */
+  primeros: 6,
+  /** Giro solo: fracción del video que avanza por segundo (0.08 ≈ el video completo en 12 s). */
+  velocidad: 0.08,
+  /** Cuánto del video recorre cada "vuelta" que pide el scroll (caer, entrar al menú…). */
+  porVuelta: 0.35,
+  /** La imagen incluye hojas: es un poco más alta que el cuerpo de la fresa. */
+  altoVsCuerpo: 1.22,
 };

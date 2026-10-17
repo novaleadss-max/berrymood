@@ -51,7 +51,6 @@ export function Chrome() {
       </div>
 
       <div className="bm-drip" aria-hidden="true" />
-      <canvas className="bm-berry" aria-hidden="true" />
       <div className="bm-berry-sprite" aria-hidden="true" />
       <div className="bm-cursor" aria-hidden="true">
         <span />

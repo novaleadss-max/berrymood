@@ -152,7 +152,7 @@ html.bm-lock body {
   color: var(--crema-suave);
 }
 
-/* ---------- Capas fijas: chocolate, fresa 3D, cursor ------------------- */
+/* ---------- Capas fijas: chocolate, fresa, cursor ------------------- */
 .bm-drip {
   position: fixed;
   inset: 0;
@@ -163,14 +163,6 @@ html.bm-lock body {
 .bm-drip svg {
   display: block;
 }
-.bm-berry {
-  position: fixed;
-  inset: 0;
-  width: 100vw;
-  height: 100vh;
-  z-index: 10;
-  pointer-events: none;
-}
 .bm-berry-sprite {
   position: fixed;
   inset: 0;
@@ -179,8 +171,12 @@ html.bm-lock body {
   overflow: hidden;
 }
 .bm-berry-canvas2d {
-  width: 100%;
-  height: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  opacity: 0;
+  transform-origin: 50% 50%;
+  will-change: transform, opacity;
 }
 .bm-berry-drop {
   position: absolute;
