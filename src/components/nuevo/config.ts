@@ -215,16 +215,18 @@ export const SORPRESAS = {
   rastro: { gotasMax: 90, gotasMaxMovil: 40 },
 };
 
-/* ---------- Fresa real (video de Gemini) --------------------------------- */
+/* ---------- Fresa real (foto de Gemini con relieve) ----------------------- */
 export const FRESA_REAL = {
-  escritorio: { ruta: "/nuevo/fresa-real/d", total: 80 },
-  movil: { ruta: "/nuevo/fresa-real/m", total: 48 },
-  /** Cuadros que se cargan antes de quitar el preloader (el resto llega después). */
-  primeros: 6,
-  /** Giro solo: fracción del video que avanza por segundo (0.08 ≈ el video completo en 12 s). */
-  velocidad: 0.08,
-  /** Cuánto del video recorre cada "vuelta" que pide el scroll (caer, entrar al menú…). */
-  porVuelta: 0.35,
-  /** La imagen incluye hojas: es un poco más alta que el cuerpo de la fresa. */
+  /** Cuánto volumen tiene (0 = plana, 0.5 = muy abultada). */
+  relieve: 0.26,
+  /** Cuánto gira siguiendo el mouse / el celular (radianes). */
+  giroMouse: 0.4,
+  /** Balanceo solo, como si flotara (giro en radianes, velocidad en rad/s). */
+  balanceo: { giro: 0.22, velocidad: 0.55 },
+  /** Cuánto voltea con el scroll. */
+  giroScroll: 0.38,
+  /** Cuánto rueda sobre sí misma al caer (fracción del giro del scroll). */
+  rodar: 0.32,
+  /** La foto incluye hojas: es un poco más alta que el cuerpo de la fresa. */
   altoVsCuerpo: 1.22,
 };

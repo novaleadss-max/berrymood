@@ -126,8 +126,7 @@ export function Experience() {
         gsap.to(shown, { p: 1, duration: 0.35, ease: "power2.out", overwrite: true, onUpdate: paint, onComplete: r }),
       );
       if (disposed) return;
-      if (!reduced) seq.loadRest().then(() => berry?.loadRest());
-      else berry?.loadRest();
+      if (!reduced) seq.loadRest();
       ctx.add(() => setup());
     };
     boot();
