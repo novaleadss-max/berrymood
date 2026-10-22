@@ -43,8 +43,8 @@ export const CAPITULOS_2_4_SCROLL = "+=420%"; // El vaso + El chocolate + El toq
 export const CAPITULOS_2_4_SCROLL_MOVIL = "+=260%";
 export const CAPITULO_6_SCROLL = "+=140%"; // La historia (texto que se rellena)
 export const CAPITULO_6_SCROLL_MOVIL = "+=90%";
-export const CAPITULO_7_SCROLL = "+=320%"; // Galería infinita
-export const CAPITULO_7_SCROLL_MOVIL = "+=200%";
+export const CAPITULO_7_SCROLL = "+=140%"; // Galería infinita
+export const CAPITULO_7_SCROLL_MOVIL = "+=100%";
 /** Productos: el tramo dura lo que mide la fila de tarjetas. Multiplica para alargarlo. */
 export const CAPITULO_5_FACTOR = 1;
 
