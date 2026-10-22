@@ -436,6 +436,24 @@ export function Experience() {
             lastY = y;
           },
         });
+        // Salida: las fotos se desvanecen completas antes de que suba el bloque,
+        // así su orilla nunca rebana una foto a la mitad.
+        const galStage = q(".g-stage");
+        gsap.fromTo(
+          galStage,
+          { autoAlpha: 1 },
+          {
+            autoAlpha: 0,
+            ease: "none",
+            immediateRender: false,
+            scrollTrigger: {
+              trigger: gal,
+              start: () => galST.end - vh() * 0.35,
+              end: () => galST.end,
+              scrub: true,
+            },
+          },
+        );
         gallery.update();
       } else {
         galST = ScrollTrigger.create({ trigger: gal, start: "top top", end: "bottom top" });

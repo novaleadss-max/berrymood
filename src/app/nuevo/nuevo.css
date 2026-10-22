@@ -952,6 +952,8 @@ html.bm-lock body {
 /* ---------- Capítulo 8 · Pídelo ---------------------------------------- */
 .bm-close {
   position: relative;
+  margin-top: -2px; /* tapa la costura con la galería (su fondo crema se asomaba un pixel) */
+  background: var(--fondo);
   min-height: 100vh;
   min-height: 100svh;
   padding: 20vh var(--pad) 14vh;
