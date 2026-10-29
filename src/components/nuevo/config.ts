@@ -136,8 +136,6 @@ export type Slide = {
 /* Fotos de la sesión. Para cambiar una, reemplaza los archivos
    /public/nuevo/fotos/<foto>-480.webp (y -960 / -wide si existen). */
 export const SLIDES: Slide[] = [
-  { foto: "vaso", titulo: "Vaso Pistache", lado: -22, ancho: 22, alt: "Vaso BerryMood con fresas, chocolate y pistache sobre fondo café", texto: "Capas de fresa, chocolate y pistache hasta el borde. Es el que más nos piden." },
-  { foto: "torre", titulo: "Fresas con chocolate", lado: 16, ancho: 14, alt: "Fresas enteras bañadas en chocolate, una sobre otra", texto: "Fresas enteras bañadas en chocolate premium. El clásico, bien hecho." },
   { foto: "estudio", titulo: "Listos para el chocolate", lado: -14, ancho: 24, alt: "Chocolate cayendo junto a decenas de vasos con fresas recién servidas", texto: "Decenas de vasos con fresa fresca esperando su chocolate premium." },
   { foto: "charola", titulo: "La charola", lado: 24, ancho: 17, alt: "Charola llena de fresas grandes y rojas", texto: "Grande, roja y firme. Si no pasa el filtro, no entra al vaso." },
   { foto: "cayendo", titulo: "Fresa por fresa", lado: -26, ancho: 15, alt: "Fresas cayendo dentro de un vaso vacío", texto: "Así empieza cada vaso: fresas frescas, una por una." },
