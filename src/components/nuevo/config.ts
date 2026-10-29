@@ -43,11 +43,6 @@ export const CAPITULOS_2_4_SCROLL = "+=420%"; // El vaso + El chocolate + El toq
 export const CAPITULOS_2_4_SCROLL_MOVIL = "+=260%";
 export const CAPITULO_6_SCROLL = "+=140%"; // La historia (texto que se rellena)
 export const CAPITULO_6_SCROLL_MOVIL = "+=90%";
-export const CAPITULO_7_SCROLL = "+=130%"; // Galería infinita
-export const CAPITULO_7_SCROLL_MOVIL = "+=125%";
-/** "¿Se te antojó?" sube encima del final de la galería (fracción de pantalla) para que no quede café vacío.
-    Si lo cambias, cambia también --bm-encima en nuevo.css. */
-export const GALERIA_ENCIMA = 0.62;
 /** Productos: el tramo dura lo que mide la fila de tarjetas. Multiplica para alargarlo. */
 export const CAPITULO_5_FACTOR = 1;
 
@@ -138,15 +133,8 @@ export type Slide = {
 export const SLIDES: Slide[] = [
   { foto: "estudio", titulo: "Listos para el chocolate", lado: -14, ancho: 24, alt: "Chocolate cayendo junto a decenas de vasos con fresas recién servidas", texto: "Decenas de vasos con fresa fresca esperando su chocolate premium." },
   { foto: "charola", titulo: "La charola", lado: 24, ancho: 17, alt: "Charola llena de fresas grandes y rojas", texto: "Grande, roja y firme. Si no pasa el filtro, no entra al vaso." },
-  { foto: "cayendo", titulo: "Fresa por fresa", lado: -26, ancho: 15, alt: "Fresas cayendo dentro de un vaso vacío", texto: "Así empieza cada vaso: fresas frescas, una por una." },
-  { foto: "armado", titulo: "El armado", lado: 20, ancho: 26, video: true, alt: "Video: se arma un vaso BerryMood con fresas, chocolate y pistache", texto: "Fresa, chocolate y pistache. Diez segundos que se te antojan." },
-  { foto: "mitades", titulo: "Por dentro", lado: -18, ancho: 16, alt: "Una fresa partida a la mitad", texto: "Fruta fresca, sin nada que esconder." },
   { foto: "pistache", titulo: "El toque final", lado: 10, ancho: 20, alt: "Pistache cayendo sobre el chocolate del vaso", texto: "Pistache y otros toppings que vamos rotando. Aquí el mood se vuelve tuyo." },
   { foto: "manos", titulo: "Hecho a mano", lado: -12, ancho: 19, alt: "Manos con guantes sosteniendo un vaso BerryMood", texto: "Servido con el cuidado de algo hecho para regalar. Aunque sea para ti." },
-  { foto: "cerca", titulo: "De cerca", lado: 22, ancho: 23, alt: "Acercamiento al pistache y las fresas con chocolate", texto: "Una capa suave, brillante y deliciosa sobre cada fresa." },
-  { foto: "dos-vasos", titulo: "Para compartir", lado: -24, ancho: 18, alt: "Dos vasos BerryMood con fresas y chocolate", texto: "Uno para ti y otro para quien quieras consentir." },
-  { foto: "bano", titulo: "Capa por capa", lado: 14, ancho: 15, alt: "Chocolate cayendo dentro del vaso de fresas", texto: "El chocolate baja entre las fresas hasta el fondo del vaso." },
-  { foto: "listo", titulo: "Listo para ti", lado: -8, ancho: 21, alt: "Vaso BerryMood terminado con pistache", texto: "Berry Your Mood." },
 ];
 
 /* ---------- Productos (del menú que ya existía) --------------------------- */

@@ -28,13 +28,9 @@ import {
   CAPITULO_5_FACTOR,
   CAPITULO_6_SCROLL,
   CAPITULO_6_SCROLL_MOVIL,
-  CAPITULO_7_SCROLL,
-  CAPITULO_7_SCROLL_MOVIL,
   CAPITULOS_2_4_SCROLL,
   CAPITULOS_2_4_SCROLL_MOVIL,
-  GALERIA,
   GOTEO,
-  GALERIA_ENCIMA,
   SORPRESAS,
   TIEMPO,
 } from "./config";
@@ -406,11 +402,13 @@ export function Experience() {
         toggleClass: { targets: header, className: "is-light" },
       });
 
-      /* ---- Capítulo 7 · Galería infinita -------------------------------- */
+      /* ---- Capítulo 7 · En fotos (sección normal, baja con el scroll) --- */
+      // Sin tramo fijo ni fotos que pasan solas: el título, cuatro fotos y listo.
+      // Al tocar una foto se abre en grande (morph con Flip).
       const gal = q("#galeria");
-      const galPin = q(".bm-gallery-pin");
       const gallery = createGallery(gal, {
         reduced,
+        still: true,
         onOpen: () => {
           lenis?.stop();
           el.classList.add("is-detail");
@@ -421,51 +419,17 @@ export function Experience() {
         },
       });
       cleanups.push(gallery.destroy);
-      let galST: ScrollTrigger;
+      const galST = ScrollTrigger.create({ trigger: gal, start: "top top", end: "bottom top" });
       if (!reduced) {
-        gsap.fromTo(
-          galPin,
-          { clipPath: "inset(16% 12% 16% 12% round 28px)" },
-          {
-            clipPath: "inset(0% 0% 0% 0% round 0px)",
-            ease: "none",
-            scrollTrigger: { trigger: gal, start: "top bottom", end: "top top", scrub: true },
-          },
-        );
-        ScrollTrigger.create({ trigger: gal, start: "top bottom", end: "bottom top", onUpdate: () => gallery.update() });
-        let lastY = 0;
-        galST = ScrollTrigger.create({
-          trigger: gal,
-          start: "top top",
-          end: mobile ? CAPITULO_7_SCROLL_MOVIL : CAPITULO_7_SCROLL,
-          pin: galPin,
-          onToggle: (self) => (lastY = self.scroll()),
-          onUpdate: (self) => {
-            const y = self.scroll();
-            gallery.scroll((y - lastY) * GALERIA.factorScroll);
-            lastY = y;
-          },
-        });
-        // Salida: fotos y título se desvanecen completos justo antes de que "¿Se te antojó?"
-        // suba encima; así ninguna foto queda rebanada y no hay pantalla café vacía.
-        gsap.fromTo(
-          [".g-stage", ".bm-gallery-head"],
-          { autoAlpha: 1 },
-          {
+        // Solo un fundido suave al aparecer cada foto (sin desplazarse).
+        qa(".bm-gallery-head, .g-slide").forEach((item) => {
+          gsap.from(item, {
             autoAlpha: 0,
-            ease: "none",
-            immediateRender: false,
-            scrollTrigger: {
-              trigger: gal,
-              start: () => galST.end - vh() * (GALERIA_ENCIMA + 0.3),
-              end: () => galST.end - vh() * GALERIA_ENCIMA,
-              scrub: true,
-            },
-          },
-        );
-        gallery.update();
-      } else {
-        galST = ScrollTrigger.create({ trigger: gal, start: "top top", end: "bottom top" });
+            duration: 0.7,
+            ease: "power2.out",
+            scrollTrigger: { trigger: item, start: "top 88%", once: true },
+          });
+        });
       }
 
       /* ---- Capítulo 8 · Pídelo + footer --------------------------------- */
@@ -520,8 +484,8 @@ export function Experience() {
           // La fila de tarjetas avanza 1px por px de scroll: la fresa se va con ella.
           { at: menuST.start + H * GOTEO.descubrir + vw() * 1.1, p: { ...menuP, x: menuP.x - 1.1, spin: menuP.spin + 2 }, linear: true },
           { at: menuST.start + H * GOTEO.descubrir + vw() * 1.1 + 1, p: { ...menuP, x: -1, opacity: 0 } },
-          { at: closeST.start, p: { ...closeP, y: -1, opacity: 0 } },
-          { at: closeST.start + H * 0.75, p: closeP },
+          { at: closeST.start + H * 0.35, p: { ...closeP, y: -1, opacity: 0 } },
+          { at: closeST.start + H * 0.95, p: closeP },
           { at: footST.start, p: closeP },
           { at: footST.end, p: { ...closeP, y: 1.05, spin: closeP.spin + 3 } },
         ].sort((a, b) => a.at - b.at);

@@ -787,64 +787,52 @@ html.bm-lock body {
   width: 15vw;
 }
 
-/* ---------- Capítulo 7 · Galería (base de la referencia) --------------- */
+/* ---------- Capítulo 7 · En fotos (sección normal) --------------------- */
+/* Título y cuatro fotos acomodadas en dos parejas desfasadas; baja con el scroll. */
 .bm-gallery {
   position: relative;
-  background: var(--crema);
+  background: var(--fondo);
 }
 .bm-gallery-pin {
   position: relative;
-  height: 100vh;
-  height: 100svh;
-  overflow: hidden;
-  background: var(--fondo);
+  padding: 16vh var(--pad) 12vh;
 }
 .bm-gallery-head {
-  position: absolute;
-  left: var(--pad);
-  bottom: 7vh;
-  z-index: 3;
-  pointer-events: none;
+  margin-bottom: 8vh;
 }
 .bm-gallery-head p {
   margin-top: 16px;
 }
-.g-stage {
-  position: absolute;
-  inset: 0;
-  perspective: 1200px;
-}
 .g-track {
-  --w-scale: 1;
-  --x-scale: 1;
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 8vh;
-  width: 100%;
-  padding-top: 14vh;
-  transform-style: preserve-3d;
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: 2vw;
+  row-gap: 10vh;
+  align-items: start;
 }
 .g-slide {
-  flex-shrink: 0;
   margin: 0;
-  transform: translateX(calc(var(--stagger, 0vw) * var(--x-scale)));
-  transform-style: preserve-3d;
   outline: none;
+  cursor: pointer;
 }
+/* Pareja 1: la mesa blanca grande y la charola más abajo */
+.g-slide:nth-child(1) { grid-column: 2 / span 5; }
+.g-slide:nth-child(2) { grid-column: 8 / span 4; margin-top: 18vh; }
+/* Pareja 2: al revés */
+.g-slide:nth-child(3) { grid-column: 1 / span 4; margin-top: 4vh; }
+.g-slide:nth-child(4) { grid-column: 6 / span 5; }
 .g-slide:focus-visible .g-media {
   outline: 2px solid var(--crema);
   outline-offset: 5px;
 }
 .g-slide .g-cap {
-  margin-top: 10px;
-  font-size: 0.92rem;
+  margin-top: 12px;
+  font-size: 0.95rem;
   color: var(--crema-suave);
 }
 .g-media {
   position: relative;
-  width: calc(var(--img-w, 200px) * var(--w-scale));
+  width: 100%;
   aspect-ratio: 0.8;
   overflow: hidden;
   border-radius: 3px;
@@ -858,7 +846,12 @@ html.bm-lock body {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transform: scale(1.2);
+  transition: transform 700ms var(--ease);
+}
+@media (hover: hover) and (pointer: fine) {
+  .g-slide:hover .g-img {
+    transform: scale(1.04);
+  }
 }
 .g-detail {
   display: none;
@@ -883,7 +876,6 @@ html.bm-lock body {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transform: scale(1.2);
 }
 .g-groups {
   display: flex;
@@ -951,7 +943,6 @@ html.bm-lock body {
 
 /* ---------- Capítulo 8 · Pídelo ---------------------------------------- */
 .bm-close {
-  --bm-encima: 62vh; /* = GALERIA_ENCIMA en config.ts */
   position: relative;
   z-index: 2;
   margin-top: -2px; /* tapa la costura con la galería (su fondo crema se asomaba un pixel) */
@@ -961,10 +952,7 @@ html.bm-lock body {
   padding: 11vh var(--pad) 14vh;
   overflow: hidden;
 }
-/* Con animaciones: sube encima del final de la galería (ya sin fotos). */
-.bm--motion .bm-close {
-  margin-top: calc(-1 * var(--bm-encima) - 2px);
-}
+
 .bm-trail {
   position: absolute;
   inset: 0;
@@ -1186,9 +1174,13 @@ html.bm-lock body {
   }
 
   .g-track {
-    --w-scale: 1.8;
-    --x-scale: 0.8;
+    column-gap: 14px;
+    row-gap: 6vh;
   }
+  .g-slide:nth-child(1) { grid-column: 1 / span 7; }
+  .g-slide:nth-child(2) { grid-column: 8 / span 5; margin-top: 12vh; }
+  .g-slide:nth-child(3) { grid-column: 1 / span 5; margin-top: 6vh; }
+  .g-slide:nth-child(4) { grid-column: 6 / span 7; margin-top: 0; }
   .bm-gallery-head {
     bottom: 5svh;
   }
@@ -1272,27 +1264,4 @@ html.bm-lock body {
 .bm--reduced .bm-story-bg {
   clip-path: none;
 }
-.bm--reduced .bm-gallery-pin {
-  height: auto;
-  padding: 14vh var(--pad);
-}
-.bm--reduced .bm-gallery-head {
-  position: static;
-  mix-blend-mode: normal;
-  margin-bottom: 8vh;
-}
-.bm--reduced .g-stage {
-  position: static;
-}
-.bm--reduced .g-track {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(min(220px, 42vw), 1fr));
-  gap: 32px 20px;
-  padding: 0;
-}
-.bm--reduced .g-slide {
-  transform: none;
-}
-.bm--reduced .g-media {
-  width: 100%;
-}
+

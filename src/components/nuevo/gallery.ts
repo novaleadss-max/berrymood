@@ -300,8 +300,7 @@ class Transition {
       })
       .to(others, { autoAlpha: 0, ...A.otras }, 0)
       .to(caption, { autoAlpha: 0, duration: 0.3 }, 0)
-      .add(Flip.from(state, { targets: this.preview, ...A.flip, absolute: true, props: "borderRadius" }), 0)
-      .fromTo(this.previewMedia, { scale: 1.2 }, { scale: 1, ...A.flip }, 0);
+      .add(Flip.from(state, { targets: this.preview, ...A.flip, absolute: true, props: "borderRadius" }), 0);
 
     this.split.lines.forEach((line, i) => {
       this.tl!.fromTo(
@@ -329,7 +328,6 @@ class Transition {
       .timeline({ onComplete: () => this.reset() })
       .to(this.split!.lines, { autoAlpha: 0, ...C.texto }, 0)
       .add(Flip.fit(this.preview, wrapper, { ...C.flip, absolute: true, props: "borderRadius" }) as gsap.core.Animation, 0)
-      .to(this.previewMedia, { scale: 1.2, ...C.flip }, 0)
       .to(others, { autoAlpha: 1, duration: 0.5, ease: "power2.out" }, 0.45)
       .to(caption, { autoAlpha: 1, duration: 0.4, ease: "power2.out" }, 0.55);
     if (this.reduced) this.tl.progress(1);
@@ -394,7 +392,7 @@ class Transition {
 /* ---------- Montaje ----------------------------------------------------- */
 export function createGallery(
   root: HTMLElement,
-  opts: { reduced: boolean; onOpen: () => void; onClose: () => void },
+  opts: { reduced: boolean; still?: boolean; onOpen: () => void; onClose: () => void },
 ) {
   const gallery = root.querySelector<HTMLElement>(".g-track")!;
   const slides = gsap.utils.toArray<HTMLElement>(".g-slide", root);
@@ -402,7 +400,8 @@ export function createGallery(
 
   let slider: Slider | null = null;
   let reveal: Reveal | null = null;
-  if (!opts.reduced) {
+  // still: fotos acomodadas fijas (sin el ciclo infinito ni el parallax).
+  if (!opts.reduced && !opts.still) {
     reveal = new Reveal(slides);
     slider = new Slider(gallery, slides, (c, im) => reveal!.toggle(c, im));
   }
