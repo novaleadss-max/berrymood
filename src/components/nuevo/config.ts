@@ -85,6 +85,10 @@ export const TIEMPO = {
 /** Transición de chocolate líquido entre secciones. */
 export const GOTEO = {
   gotas: 13, // escurrimientos en pantalla (en celular se usan 8)
+  /** Pantallas de scroll en que el chocolate cubre el vaso terminado. */
+  cubrir: 0.7,
+  /** Pantallas de scroll en que se retira y descubre el menú (las tarjetas esperan). */
+  descubrir: 0.7,
   /** Capa principal (también es el fondo del preloader). */
   frente: "#2B1509",
   /** Capa que se adelanta: chocolate con leche, para que se vean las gotas. */

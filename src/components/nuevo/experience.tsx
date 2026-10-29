@@ -33,6 +33,7 @@ import {
   CAPITULOS_2_4_SCROLL,
   CAPITULOS_2_4_SCROLL_MOVIL,
   GALERIA,
+  GOTEO,
   GALERIA_ENCIMA,
   SORPRESAS,
   TIEMPO,
@@ -57,6 +58,8 @@ type Pose = { x: number; y: number; s: number; spin: number; tilt: number; opaci
 type Key = { at: number; p: Pose; linear?: boolean };
 
 const wait = (ms: number) => new Promise((r) => setTimeout(r, ms));
+/** "+=420%" → px (fracción de la altura de pantalla). */
+const pct = (v: string) => (parseFloat(v.replace("+=", "")) / 100) * window.innerHeight;
 
 const smooth = (t: number) => t * t * (3 - 2 * t);
 
@@ -216,13 +219,16 @@ export function Experience() {
           scrollTrigger: {
             trigger: armado,
             start: "top top",
-            end: mobile ? CAPITULOS_2_4_SCROLL_MOVIL : CAPITULOS_2_4_SCROLL,
+            // + un tramo extra al final en el que el chocolate cubre el vaso terminado
+            end: () => `+=${pct(mobile ? CAPITULOS_2_4_SCROLL_MOVIL : CAPITULOS_2_4_SCROLL) + vh() * GOTEO.cubrir}`,
             pin: true,
             scrub: A.scrub,
+            invalidateOnRefresh: true,
           },
         });
         armST = tl.scrollTrigger!;
-        tl.set({}, {}, 1); // el tramo mide exactamente 1
+        // El tramo del armado mide 1; después va la pausa del chocolate (en la misma escala).
+        tl.set({}, {}, 1 + (vh() * GOTEO.cubrir) / pct(mobile ? CAPITULOS_2_4_SCROLL_MOVIL : CAPITULOS_2_4_SCROLL));
 
         // Entrada: máscara circular desde donde cayó la fresa.
         tl.fromTo(
@@ -267,20 +273,25 @@ export function Experience() {
       }
 
       /* ---- Transición: chocolate líquido hacia el menú ------------------ */
+      // 1) con el vaso ya terminado, el chocolate cae y cubre toda la pantalla;
+      // 2) detrás, sin que se vea, una sección se va y llega la otra;
+      // 3) con el menú ya fijo en su lugar, el chocolate escurre hacia abajo y lo descubre.
       const menu = q("#menu");
       const inOut = gsap.parseEase("power2.inOut");
       if (!reduced) {
-        ScrollTrigger.create({
-          trigger: menu,
-          start: "top bottom",
-          end: "top top",
+        const dripST = ScrollTrigger.create({
+          start: 0,
+          end: "max",
           onUpdate: (self) => {
-            const p = self.progress;
-            drip.set(inOut(Math.min(1, p / 0.5)), inOut(Math.max(0, (p - 0.5) / 0.5)));
+            if (!armST || !menuST || dripLocked) return;
+            const y = self.scroll();
+            const H = vh();
+            const c = gsap.utils.clamp(0, 1, (y - (armST.end - H * GOTEO.cubrir)) / (H * GOTEO.cubrir * 0.85));
+            const u = gsap.utils.clamp(0, 1, (y - menuST.start - H * 0.05) / (H * (GOTEO.descubrir - 0.05)));
+            drip.set(inOut(c), inOut(u));
           },
-          onLeave: () => drip.set(0, 0),
-          onLeaveBack: () => drip.set(0, 0),
         });
+        cleanups.push(() => dripST.kill());
       }
 
       /* ---- Capítulo 5 · Los productos (horizontal fijo) ----------------- */
@@ -291,13 +302,15 @@ export function Experience() {
           scrollTrigger: {
             trigger: menu,
             start: "top top",
-            end: () => `+=${dist() * CAPITULO_5_FACTOR}`,
+            // + una pausa al inicio mientras el chocolate lo descubre (las tarjetas no se mueven aún)
+            end: () => `+=${dist() * CAPITULO_5_FACTOR + vh() * GOTEO.descubrir}`,
             pin: ".bm-menu-pin",
             scrub: 0.6,
             invalidateOnRefresh: true,
           },
         });
-        tl.to(track, { x: () => -dist(), ease: "none" });
+        tl.to({}, { duration: (vh() * GOTEO.descubrir) / Math.max(1, dist() * CAPITULO_5_FACTOR) });
+        tl.to(track, { x: () => -dist(), ease: "none", duration: 1 });
         menuST = tl.scrollTrigger!;
         // Cada tarjeta gira en 3D al entrar y al salir, la foto se desliza adentro.
         qa(".bm-card").forEach((card) => {
@@ -339,6 +352,8 @@ export function Experience() {
 
     // Variables compartidas entre las dos mitades del arranque.
     let heroST: ScrollTrigger, armST: ScrollTrigger | null, menuST: ScrollTrigger;
+    /** Mientras otra animación usa el chocolate (preloader, "Otra vez"), el scroll no lo toca. */
+    let dripLocked = false;
     let drip: Drip, header: HTMLElement, heroSplit: SplitText, armado: HTMLElement;
 
     function setupRest() {
@@ -500,11 +515,11 @@ export function Experience() {
           { at: heroST.start, p: heroP },
           { at: heroST.end, p: fallen },
           { at: heroST.end + 1, p: { ...fallen, opacity: 0 } },
-          { at: menuST.start - H * 0.45, p: { ...menuP, y: 1, opacity: 0 } },
-          { at: menuST.start, p: menuP },
+          { at: menuST.start + H * 0.1, p: { ...menuP, y: 1, opacity: 0 } },
+          { at: menuST.start + H * GOTEO.descubrir, p: menuP },
           // La fila de tarjetas avanza 1px por px de scroll: la fresa se va con ella.
-          { at: menuST.start + vw() * 1.1, p: { ...menuP, x: menuP.x - 1.1, spin: menuP.spin + 2 }, linear: true },
-          { at: menuST.start + vw() * 1.1 + 1, p: { ...menuP, x: -1, opacity: 0 } },
+          { at: menuST.start + H * GOTEO.descubrir + vw() * 1.1, p: { ...menuP, x: menuP.x - 1.1, spin: menuP.spin + 2 }, linear: true },
+          { at: menuST.start + H * GOTEO.descubrir + vw() * 1.1 + 1, p: { ...menuP, x: -1, opacity: 0 } },
           { at: closeST.start, p: { ...closeP, y: -1, opacity: 0 } },
           { at: closeST.start + H * 0.75, p: closeP },
           { at: footST.start, p: closeP },
@@ -555,7 +570,7 @@ export function Experience() {
           armAt(ARMADO.fresas[0] + 0.02),
           armAt(ARMADO.chocolate[0] + 0.02),
           armAt(ARMADO.pistache[0] + 0.02),
-          menuST.start + 2,
+          menuST.start + vh() * GOTEO.descubrir,
           storyST.start + 2,
           galST.start + 2,
           closeST.end - vh() * 0.1,
@@ -642,6 +657,7 @@ export function Experience() {
         if (reduced || !lenis) return goTo(0);
         const d = { c: 0, u: 0 };
         lenis.stop();
+        dripLocked = true;
         gsap
           .timeline()
           .to(d, { c: 1, duration: 0.9, ease: "power2.inOut", onUpdate: () => drip.set(d.c, d.u) })
@@ -654,7 +670,10 @@ export function Experience() {
           .add(() => {
             lenis!.start();
             intro(true);
-          }, "<0.2");
+          }, "<0.2")
+          .add(() => {
+            dripLocked = false;
+          });
       };
       again.addEventListener("click", onAgain);
       cleanups.push(() => again.removeEventListener("click", onAgain));
