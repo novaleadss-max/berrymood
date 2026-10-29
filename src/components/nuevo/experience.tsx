@@ -33,6 +33,7 @@ import {
   CAPITULOS_2_4_SCROLL,
   CAPITULOS_2_4_SCROLL_MOVIL,
   GALERIA,
+  GALERIA_ENCIMA,
   SORPRESAS,
   TIEMPO,
 } from "./config";
@@ -417,12 +418,6 @@ export function Experience() {
           },
         );
         ScrollTrigger.create({ trigger: gal, start: "top bottom", end: "bottom top", onUpdate: () => gallery.update() });
-        gsap.to(".bm-gallery-head", {
-          autoAlpha: 0,
-          y: -40,
-          ease: "none",
-          scrollTrigger: { trigger: gal, start: "top top", end: "+=35%", scrub: true },
-        });
         let lastY = 0;
         galST = ScrollTrigger.create({
           trigger: gal,
@@ -436,11 +431,10 @@ export function Experience() {
             lastY = y;
           },
         });
-        // Salida: las fotos se desvanecen completas antes de que suba el bloque,
-        // así su orilla nunca rebana una foto a la mitad.
-        const galStage = q(".g-stage");
+        // Salida: fotos y título se desvanecen completos justo antes de que "¿Se te antojó?"
+        // suba encima; así ninguna foto queda rebanada y no hay pantalla café vacía.
         gsap.fromTo(
-          galStage,
+          [".g-stage", ".bm-gallery-head"],
           { autoAlpha: 1 },
           {
             autoAlpha: 0,
@@ -448,8 +442,8 @@ export function Experience() {
             immediateRender: false,
             scrollTrigger: {
               trigger: gal,
-              start: () => galST.end - vh() * 0.35,
-              end: () => galST.end,
+              start: () => galST.end - vh() * (GALERIA_ENCIMA + 0.3),
+              end: () => galST.end - vh() * GALERIA_ENCIMA,
               scrub: true,
             },
           },
@@ -467,7 +461,7 @@ export function Experience() {
       const footST = ScrollTrigger.create({ trigger: footer, start: "top bottom", end: "top 40%" });
       if (!reduced) {
         gsap
-          .timeline({ scrollTrigger: { trigger: close, start: "top 65%", once: true } })
+          .timeline({ scrollTrigger: { trigger: close, start: "top 92%", once: true } })
           .from(closeTitle.chars, { yPercent: 110, duration: 1.1, stagger: 0.03, ease: "expo.out" })
           .from([".bm-close-lead", ".bm-cta", ".bm-close-info"], { y: 28, autoAlpha: 0, duration: 0.9, stagger: 0.08, ease: "expo.out" }, 0.25);
         const word = SplitText.create(".bm-footer-word", { type: "chars", charsClass: "bm-char", mask: "chars" });
