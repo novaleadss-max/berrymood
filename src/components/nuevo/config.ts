@@ -131,7 +131,7 @@ export type Slide = {
 export const SLIDES: Slide[] = [
   { foto: "vaso", titulo: "Vaso Pistache", lado: -22, ancho: 22, alt: "Vaso BerryMood con fresas, chocolate y pistache sobre fondo café", texto: "Capas de fresa, chocolate y pistache hasta el borde. Es el que más nos piden." },
   { foto: "torre", titulo: "Fresas con chocolate", lado: 16, ancho: 14, alt: "Fresas enteras bañadas en chocolate, una sobre otra", texto: "Fresas enteras bañadas en chocolate premium. El clásico, bien hecho." },
-  { foto: "vertido", titulo: "El baño", lado: -14, ancho: 24, alt: "Chocolate cayendo sobre un vaso de fresas con pistache", texto: "Chocolate premium, fundido y servido a la temperatura justa." },
+  { foto: "estudio", titulo: "Listos para el chocolate", lado: -14, ancho: 24, alt: "Chocolate cayendo junto a decenas de vasos con fresas recién servidas", texto: "Decenas de vasos con fresa fresca esperando su chocolate premium." },
   { foto: "charola", titulo: "La charola", lado: 24, ancho: 17, alt: "Charola llena de fresas grandes y rojas", texto: "Grande, roja y firme. Si no pasa el filtro, no entra al vaso." },
   { foto: "cayendo", titulo: "Fresa por fresa", lado: -26, ancho: 15, alt: "Fresas cayendo dentro de un vaso vacío", texto: "Así empieza cada vaso: fresas frescas, una por una." },
   { foto: "armado", titulo: "El armado", lado: 20, ancho: 26, video: true, alt: "Video: se arma un vaso BerryMood con fresas, chocolate y pistache", texto: "Fresa, chocolate y pistache. Diez segundos que se te antojan." },
@@ -187,7 +187,7 @@ export const PRODUCTOS: Producto[] = [
 
 /* ---------- Contacto ------------------------------------------------------ */
 /** PENDIENTE: escribe aquí el WhatsApp con lada, solo números (ej. "527471234567").
-    Mientras esté vacío, el botón "Pídelo" lleva a Instagram. */
+    Mientras esté vacío, los botones dicen "Síguenos en Instagram" y llevan a Instagram. */
 export const WHATSAPP = "";
 export const MENSAJE_WHATSAPP = "Hola BerryMood, quiero hacer un pedido.";
 

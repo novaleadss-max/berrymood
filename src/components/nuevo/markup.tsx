@@ -11,10 +11,11 @@ import { CAPITULOS, PRODUCTOS, SLIDES, WHATSAPP, pedidoUrl, type Slide } from ".
 
 const foto = (name: string, size: 480 | 960 | "wide") => `/nuevo/fotos/${name}-${size}.webp`;
 /** Fotos que existen en 960 (las de la sesión nueva). */
-const HAS_960 = new Set(["vaso", "vertido", "cerca", "charola"]);
+const HAS_960 = new Set(["vaso", "vertido", "cerca", "charola", "estudio"]);
 const srcSet = (name: string) => (HAS_960.has(name) ? `${foto(name, 480)} 480w, ${foto(name, 960)} 960w` : undefined);
 
-const pedidoLabel = WHATSAPP ? "Pídelo por WhatsApp" : "Pídelo por Instagram";
+const pedidoLabel = WHATSAPP ? "Pídelo por WhatsApp" : "Síguenos en Instagram";
+const headerLabel = WHATSAPP ? "Pídelo" : "Instagram";
 const ext = { target: "_blank", rel: "noopener noreferrer" } as const;
 
 function Arrow() {
@@ -69,7 +70,7 @@ export function Chrome() {
           <a href="#pidelo" className="bm-link">Visítanos</a>
         </nav>
         <a href={pedidoUrl} {...ext} className="bm-btn bm-btn--sm" data-magnetic="0.3">
-          <span data-magnetic-inner>Pídelo</span>
+          <span data-magnetic-inner>{headerLabel}</span>
           <span className="sr-only"> (abre en otra pestaña)</span>
         </a>
       </header>
@@ -389,7 +390,7 @@ export function Pidelo() {
           Pasa por el tuyo a {site.address.place}
           <br />o escríbenos y te lo tenemos listo.
         </p>
-        <a href={pedidoUrl} {...ext} className="bm-cta" data-magnetic="0.45" data-cursor="Pedir">
+        <a href={pedidoUrl} {...ext} className="bm-cta" data-magnetic="0.45" data-cursor={WHATSAPP ? "Pedir" : "Seguir"}>
           <span data-magnetic-inner>{pedidoLabel}</span>
           <span className="sr-only"> (abre en otra pestaña)</span>
         </a>
