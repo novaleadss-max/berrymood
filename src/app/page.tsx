@@ -1,19 +1,41 @@
-import { SiteHeader } from "@/components/site-header";
-import { Hero } from "@/components/hero";
-import { About, BuildYourMood, SiteFooter, ValuesBand, Visit } from "@/components/sections";
+import type { Metadata, Viewport } from "next";
+
+import { Experience } from "@/components/nuevo/experience";
+import "./nuevo.css";
+
+export const metadata: Metadata = {
+  title: "BerryMood | Fresas con chocolate premium en Chilpancingo",
+  description:
+    "Fresas seleccionadas, chocolate premium y pistache. Vasos, fresas con chocolate, fresas con crema y cajas para regalo en Galerías Chilpancingo. Berry Your Mood.",
+  alternates: { canonical: "/" },
+  openGraph: {
+    title: "BerryMood | Berry Your Mood.",
+    description: "Fresas con chocolate premium, armadas capa por capa, en Galerías Chilpancingo.",
+    locale: "es_MX",
+    type: "website",
+    siteName: "BerryMood",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "BerryMood | Berry Your Mood.",
+    description: "Fresas con chocolate premium, armadas capa por capa, en Galerías Chilpancingo.",
+  },
+};
+
+// La barra del navegador del celular toma el mismo café del fondo.
+export const viewport: Viewport = {
+  themeColor: "#1A0D08",
+  colorScheme: "dark",
+  viewportFit: "cover",
+};
 
 export default function Home() {
   return (
     <>
-      <SiteHeader />
-      <main>
-        <Hero />
-        <ValuesBand />
-        <About />
-        <BuildYourMood />
-        <Visit />
-      </main>
-      <SiteFooter />
+      <noscript>
+        <style>{`.bm-preloader{display:none}`}</style>
+      </noscript>
+      <Experience />
     </>
   );
 }
