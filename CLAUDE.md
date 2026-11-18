@@ -11,16 +11,19 @@ no un desarrollador.
 
 ## Reglas que no se rompen
 
-1. **Nunca publiques con `vercel` / `npx vercel` / `deploy.sh`.** Publicar = commit + push a
-   `main`; Vercel despliega solo desde GitHub. Un deploy directo desde una máquina ya
-   reemplazó la página una vez con una versión que el usuario no aprobó.
+1. **Nunca publiques a mano a producción** (nada de `wrangler pages deploy`, `vercel`,
+   `npx vercel` ni scripts de deploy). Publicar = commit + push a `main`; **Cloudflare Pages**
+   publica solo desde GitHub (ya no se usa Vercel). Un deploy directo desde una máquina ya
+   reemplazó la página una vez con una versión que el usuario no aprobó. Las demás ramas
+   se publican solas como vista previa en Cloudflare.
 2. **El hero (sección de inicio) no se toca** sin que el usuario lo pida explícitamente.
    Le encanta como está: vaso al centro, anillo dorado girando, "Berry / Your / Mood.".
 3. **Un cambio = un commit** con mensaje claro en español, para poder deshacer uno solo.
 4. Antes de cambiar diseño o animación, muestra capturas (Playwright) y pregunta.
    Nada de transiciones entre secciones tipo "hojas" o difuminados: ya se probaron y se
    descartaron. Las secciones pasan normal al hacer scroll.
-5. `npm run build` debe pasar antes de cada push.
+5. `npm run build` debe pasar antes de cada push (genera la carpeta `out/`, el sitio estático
+   que Cloudflare publica; build `npm run build`, salida `out`, Node 22).
 
 ## Marca
 
