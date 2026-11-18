@@ -17,7 +17,7 @@ no un desarrollador.
    reemplazó la página una vez con una versión que el usuario no aprobó. Las demás ramas
    se publican solas como vista previa en Cloudflare.
 2. **El hero (sección de inicio) no se toca** sin que el usuario lo pida explícitamente.
-   Le encanta como está: vaso al centro, anillo dorado girando, "Berry / Your / Mood.".
+   Es el de la fresa grande al centro con "Berry / Your Mood." en letra enorme.
 3. **Un cambio = un commit** con mensaje claro en español, para poder deshacer uno solo.
 4. Antes de cambiar diseño o animación, muestra capturas (Playwright) y pregunta.
    Nada de transiciones entre secciones tipo "hojas" o difuminados: ya se probaron y se
@@ -35,13 +35,13 @@ no un desarrollador.
 
 ## Estructura
 
-Next.js 16 (App Router) + Tailwind 4 + `motion` (`motion/react`). Radix para el menú móvil.
+Next.js 16 (App Router) + Tailwind 4 + GSAP + Lenis.
 
-- `src/components/hero.tsx` — inicio
-- `src/components/sections.tsx` — valores, Quiénes somos, Visítanos, footer
-- `src/components/scroll-scenes.tsx` — animaciones ligadas al scroll: foto en el arco,
-  vaso fijo que gira en "Arma tu mood", logo tipo bisel Rolex
+- `src/app/page.tsx` — página principal (diseño de la fresa); estilos en `src/app/nuevo.css`
+- `src/components/nuevo/` — toda la experiencia (GSAP + Lenis): `experience.tsx`, `markup.tsx`,
+  `config.ts` (textos y fotos), `gallery.ts`, `interactions.ts`
 - `src/lib/site.ts` — Instagram, dirección, links
+- Las fotos y secuencias viven en `public/nuevo/`
 
 ## Skills de este proyecto (`.claude/skills/`)
 
