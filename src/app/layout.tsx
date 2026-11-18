@@ -17,9 +17,11 @@ const jost = Jost({
   display: "swap",
 });
 
-const vercelUrl = process.env.VERCEL_PROJECT_PRODUCTION_URL ?? process.env.VERCEL_URL;
+// Dirección pública del sitio (para las imágenes al compartir en redes).
+// NEXT_PUBLIC_SITE_URL manda (ponla en Cloudflare cuando haya dominio propio);
+// si no, se usa la dirección que Cloudflare Pages asigna en cada build.
 const siteUrl =
-  process.env.NEXT_PUBLIC_SITE_URL ?? (vercelUrl ? `https://${vercelUrl}` : "http://localhost:3000");
+  process.env.NEXT_PUBLIC_SITE_URL ?? process.env.CF_PAGES_URL ?? "http://localhost:3000";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
